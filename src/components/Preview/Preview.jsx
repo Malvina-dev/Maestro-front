@@ -1,14 +1,18 @@
 import "./Preview.scss";
+import { useState } from "react";
 
 function Preview({title, genres}) {
 
-    const audio = document.getElementById("audio");
+    // const audio = document.getElementById("audio");
     const play = document.querySelector('.button__play');
     const pause = document.querySelector('.button__pause');
 
+    const [playIsHidden, setPlayIsHidden] = useState(false);
+    const [pauseIsHidden, setPauseIsHidden] = useState(true);
+
     function toggleHidden() {
-        play.classList.toggle('hidden');
-        pause.classList.toggle('hidden');
+        setPlayIsHidden(!playIsHidden);
+        setPauseIsHidden(!pauseIsHidden);
     }
 
     function handlePlay() {
@@ -32,11 +36,11 @@ function Preview({title, genres}) {
                         <source src="null"/>
                     </audio>
                     <div className="buttons">
-                        <div className="button button__play" onClick={handlePlay} id="play">
-                            <img id="play__icon" src="/src/assets/play-svgrepo-com.svg" alt="" />
+                        <div className={playIsHidden ? "button button__play hidden" : "button button__play"} onClick={handlePlay} id="play">
+                            <img id="play__icon" src="/src/assets/play-svgrepo-com.svg" alt="play button" />
                         </div>
-                        <div className="button button__pause hidden" onClick={handlePause} id="pause">
-                        
+                        <div className={pauseIsHidden ? "button button__pause hidden" : "button button__pause"} onClick={handlePause} id="pause">
+                            <img src="/src/assets/pause-svgrepo-com.svg" alt="pause button" />
                         </div>
                     </div>
                 </figure>
