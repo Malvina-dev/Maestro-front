@@ -1,12 +1,10 @@
 import "./Preview.scss";
 import { useState } from "react";
+import { useEffect } from "react";
 
-function Preview({title, genres}) {
+function Preview({title, audiosrc, genres}) {
 
-    // const audio = document.getElementById("audio");
-    const play = document.querySelector('.button__play');
-    const pause = document.querySelector('.button__pause');
-
+    const [audioElement, setAudioElement] = useState();
     const [playIsHidden, setPlayIsHidden] = useState(false);
     const [pauseIsHidden, setPauseIsHidden] = useState(true);
 
@@ -16,14 +14,18 @@ function Preview({title, genres}) {
     }
 
     function handlePlay() {
-        // audio.play();
+        audioElement.play();
         toggleHidden();
     }
 
     function handlePause() {
-        // audio.pause();
+        audioElement.pause();
         toggleHidden();
     }
+
+    useEffect(() => {
+        setAudioElement(new Audio(audiosrc));
+    }, [audiosrc])
 
     return (
         <>
@@ -31,9 +33,9 @@ function Preview({title, genres}) {
             <div className="preview__container">
                 <figure className="preview__title__container">
                     <figcaption className="preview__title">{title}</figcaption>
-                    <audio id="audio">
+                    <audio className="audio">
                         {/* à mettre la source dynamiquement, et le type */}
-                        <source src="null"/>
+                        <source src={audiosrc} type="audio/mpeg"/>
                     </audio>
                     <div className="buttons">
                         <div className={playIsHidden ? "button button__play hidden" : "button button__play"} onClick={handlePlay} id="play">
