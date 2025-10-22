@@ -1,105 +1,180 @@
-header.scss
+### Fichier `header.scss`
 
-header :
-    position: fixed;              // Le header reste toujours visible en haut de la page, même lorsqu’on défile.
-    top: 0;                      // Positionne le header tout en haut de la fenêtre.
-    left: 0;                     // Aligne le header sur le bord gauche.
-    width: 100%;                 // Fait en sorte que le header prenne toute la largeur de la page.
-    display: flex;               // Utilise Flexbox pour agencer les éléments à l’intérieur du header.
-    align-items: center;         // Aligne verticalement les éléments au centre.
-    justify-content: space-between; // Répartit les éléments sur les côtés gauche et droit du header.
-    padding: 20px 40px;          // Ajoute de l’espace intérieur (20px en haut/bas, 40px à gauche/droite).
-    background-color: #f4f4de;   // Définit une couleur de fond beige clair.
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Ajoute une ombre douce sous le header pour créer du relief.
-    z-index: 1000;               // Place le header au-dessus des autres éléments (priorité d’affichage élevée).
+#### Section `header`
 
+```scss
+header {
+    position: fixed;               
+    top: 0;                       
+    left: 0;                      
+    width: 100%;                  
+    display: flex;               
+    align-items: center;          
+    justify-content: space-between; 
+    padding: 20px 40px;           
+    background-color: #f4f4de;    
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    z-index: 1000;               
+}
+```
 
-img :
-    width: 136px;                // Définit la largeur de l’image du logo.
-    height: 136px;               // Définit la hauteur de cette image.
-    border-radius: 50%;          // Rend l’image circulaire.
-    object-fit: contain;         // Fait en sorte que l’image reste entièrement visible sans être coupée.
+**Description :**
 
+- Le header reste visible en haut de la page pendant le défilement.
+- Alignement horizontal des éléments via Flexbox.
+- Espacement interne : 20px en haut/bas, 40px gauche/droite.
+- Fond beige clair et ombre légère pour créer du relief.
+- Priorité d’affichage élevée avec `z-index: 1000`.
 
+***
 
-nav :
-    flex-grow: 1;                // Permet à la navigation d’occuper tout l’espace disponible dans le header.
-    display: flex;               // Active Flexbox pour les éléments internes de la navigation.
-    flex-direction: row;         // Organise les éléments en ligne (horizontalement).
-    flex-wrap: nowrap;           // Empêche le retour à la ligne des éléments de navigation.
-    justify-content: space-around; // Répartit les blocs internes de façon équilibrée.
+#### Section `img`
 
-ul :
-    display: flex;       // Met les éléments de liste (li) sur la même ligne.
-    align-items: center; // Centre verticalement les items dans la liste.
-    list-style: none;    // Supprime les puces des listes.
-    gap: 500px;          // Espace très large entre les éléments du menu.
-    margin: 0;           // Supprime les marges par défaut de la liste.
-    padding: 0;          // Supprime le padding par défaut.
+```scss
+img {
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+```
 
+**Description :**
 
-li a :
-    text-decoration: none; // Supprime le soulignement des liens.
-    color: #000000;           // Définit la couleur du texte en noir.
-    font-family: Roboto Mono; // Utilise la police Roboto Mono pour un style monospacé.
-    font-weight: 500;      // Applique une épaisseur moyenne au texte.
-    font-size: 1rem;       // Définit la taille du texte à 1 rem (taille relative).
-    transition: color 0.3s ease; // Anime en douceur le changement de couleur au survol.
+- Taille fixe du logo (136 × 136 px).
+- Forme circulaire grâce à `border-radius: 50%`.
+- L’image garde ses proportions sans être coupée.
 
+***
 
-&:hover 
-    color: #007bff;    // Change la couleur du texte en bleu lors du survol du lien.
+#### Section `nav`
 
+```scss
+nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+```
 
+**Description :**
 
+- La navigation occupe tout l’espace horizontal disponible.
+- Les éléments internes sont disposés en ligne et équilibrés.
+- Aucun retour à la ligne possible (`nowrap`).
 
-/* Pour éviter que le contenu soit caché sous le header fixe */
+***
+
+#### Section `ul`
+
+```scss
+ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 500px;
+    margin: 0;
+    padding: 0;
+}
+```
+
+**Description :**
+
+- Les items (`li`) sont sur une même ligne.
+- Aucun style de liste ni marge/padding par défaut.
+- Grand espacement de 500px entre les éléments.
+
+***
+
+#### Section `li a`
+
+```scss
+li a {
+    text-decoration: none;
+    color: #000000;
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #007bff;
+    }
+}
+```
+
+**Description :**
+
+- Liens sans soulignement et couleur noire.
+- Police monospacée Roboto Mono, épaisseur moyenne.
+- Animation douce du changement de couleur (noir → bleu au survol).
+
+***
+
+#### Ajustement du contenu global
+
+```scss
 body {
     padding-top: 176px; // hauteur du header + marge de sécurité
 }
+```
 
+**Description :**
 
-header.jsx
+- Évite que le contenu de la page soit caché sous le header fixe.
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setMenuOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+***
 
-useEffect est déclenché une fois au montage du composant (car le tableau de dépendances est vide []).
+### Fichier `header.jsx`
 
-la fonction handleClickOutside est crée. Elle vérifie si l’endroit où l’utilisateur a cliqué (event.target) n’est pas à l’intérieur de l’élément menu ciblé par menuRef.
+#### Gestion du clic en dehors du menu
 
-Si le clic est en dehors (!menuRef.current.contains(event.target)), la fonction appelle setMenuOpen(false) pour fermer le menu.
+```jsx
+useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuOpen(false);
+        }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, []);
+```
 
-Un écouteur d’événement mousedown est ajouté à document pour capturer tous les clics.
+**Explication :**
 
-Ce même écouteur est retiré lors du démontage du composant pour éviter des fuites mémoire.
+- `useEffect` s’exécute une seule fois lors du montage du composant (`[]` vide).
+- Définit la fonction `handleClickOutside` qui :
+    - Vérifie si le clic intervient **en dehors du menu** référencé par `menuRef`.
+    - Ferme le menu (`setMenuOpen(false)`) si c’est le cas.
+- L’écouteur `mousedown` est ajouté au document globalement.
+- Retiré au démontage du composant pour éviter les fuites mémoire.
 
+***
 
+#### Gestion de l’icône utilisateur
 
+```jsx
 const iconSrc = user
-        ? user.role === "admin"
-            ? adminIcon
-            : clientIcon
-        : null;
+    ? user.role === "admin"
+        ? adminIcon
+        : clientIcon
+    : null;
+```
 
-La première condition teste si la variable user existe (est définie et "truthy").
+**Logique :**
 
-Si user existe, alors la deuxième condition vérifie le rôle de l'utilisateur :
+- Si un utilisateur est connecté (`user` existe) :
+    - Si son rôle est `"admin"`, alors `iconSrc = adminIcon`.
+    - Sinon, `iconSrc = clientIcon`.
+- Si aucun utilisateur n’est connecté, `iconSrc = null`.
 
-Si user.role est "admin", alors iconSrc prend la valeur adminIcon.
-
-Sinon (user.role n'est pas "admin"), iconSrc prend la valeur clientIcon.
-
-Si user n'existe pas (est null ou undefined), alors iconSrc vaut null.
-
-On peut dire en clair :
-"Si un utilisateur est connecté, vérifier son rôle. S’il est admin, afficher l’icône admin, sinon afficher l’icône client. Sinon, ne rien afficher."
+**En clair :**
+> "Si un utilisateur est connecté, vérifier son rôle.
+> S’il est admin, afficher l’icône admin.
+> Sinon, afficher l’icône client.
+> Si aucun utilisateur n’est connecté, ne rien afficher."
