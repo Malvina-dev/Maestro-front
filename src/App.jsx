@@ -4,7 +4,6 @@ import Footer from './components/Footer/Footer.jsx';
 import Description from './components/Description/Description'
 import PreviewList from './components/PreviewList/PreviewList.jsx'
 
-import './App.css'
 import './index.css';
 
 function App() {
@@ -22,5 +21,7 @@ function App() {
           
     </div>
   );
+
+}
 
 export default App 
