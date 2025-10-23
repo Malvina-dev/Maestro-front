@@ -10,9 +10,8 @@
 .client-list-header {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-top: 1rem;
+    // margin: top right+left
+    margin: 1rem 1rem;
     background-color: #e07a5f;
     color: white;
     padding-top: 0.5rem;
@@ -33,10 +32,8 @@
 }
 
 .client-list-result {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    // margin: top right bottom left
+    margin: 0.5rem 1rem 0.5rem 1rem;
     font-size: 0.8rem;
 }
 
