@@ -50,7 +50,6 @@ function ClientList() {
                 </Col>
             </Row>
             {/* Lite des clients */}
-
             {clientList != [] &&
                 clientList.map((client) => (
                     <Row key={client.id} className="client-list-result">
@@ -85,61 +84,3 @@ function ClientList() {
 }
 
 export default ClientList;
-
-{
-    /* <Row className="client-list-result">
-                <Col
-                    sm={2}
-                    className="client-list-result_item client-list-result_name_item"
-                >
-                    Lucas Taguet
-                </Col>
-                <Col
-                    sm={3}
-                    className="client-list-result_item client-list-result_email_item"
-                >
-                    lucas.taguet@exemple.com
-                </Col>
-                <Col
-                    sm={5}
-                    className="client-list-result_item client-list-result_adress_item"
-                >
-                    17 Allée du Commit 75099 Paris
-                </Col>
-                <Col
-                    sm={2}
-                    className="client-list-result_item client-list-result_phone-number_item"
-                >
-                    1111111111
-                </Col>
-            </Row>
-            <Row className="client-list-result">
-                <Col
-                    sm={2}
-                    className="client-list-result_item client-list-result_name_item"
-                >
-                    Yann Middleware
-                </Col>
-                <Col
-                    sm={3}
-                    className="client-list-result_item client-list-result_email_item"
-                >
-                    yann.middleware@exemple.com
-                </Col>
-                <Col
-                    sm={5}
-                    className="client-list-result_item client-list-result_adress_item"
-                >
-                    Appartement 12B, Résidence des Développeurs Éclairés, 2457
-                    Boulevard de la Compatibilité Internavigateurs, Quartier des
-                    Variables Globales, Commune de Code-sur-Loire, Département
-                    du JavaScript-Atlantique, 99999 France
-                </Col>
-                <Col
-                    sm={2}
-                    className="client-list-result_item client-list-result_phone-number_item"
-                >
-                    3333333333
-                </Col>
-            </Row> */
-}

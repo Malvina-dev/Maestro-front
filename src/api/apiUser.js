@@ -17,17 +17,17 @@ const API_URL = "http://localhost:3000/api";
 //     }
 // }
 
-// export async function loginUser(userData) {
-//     axios
-//         .post(`${API_URL}/user/login`, userData)
-//         .then(function (res) {
-//             console.log(res.data);
-//             return res.data;
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-//         });
-// }
+export async function loginUser(userData) {
+    return axios
+        .post(`${API_URL}/user/login`, userData)
+        .then(function (res) {
+            console.log(res.data);
+            return res.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
 // Rafraichir le token
 // POST/api/user/refresh
