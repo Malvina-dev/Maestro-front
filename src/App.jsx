@@ -18,12 +18,12 @@ function App() {
         
         <Header />
         <main>
-      <Description />
-    <ProjectForm />
+      {/* <Description />
+    <ProjectForm /> */}
           <PreviewList />
-          <ClientCard />
+          {/* <ClientCard />
           <ClientInline />
-          <ClientList />  
+          <ClientList />   */}
         </main>
         <Footer />
           

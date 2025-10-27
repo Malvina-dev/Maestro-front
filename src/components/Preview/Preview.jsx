@@ -55,7 +55,7 @@ function Preview({title, audiosrc, genres}) {
                 {
                     // on va chercher dans genres pour afficher dynamiquement (pour le moment avec les données en dur)
                     genres.map((genre, index) => (
-                        <span key={index} className="preview__genre">{genre}</span>
+                        <span key={index} className="preview__genre">{genre.label}</span>
                     ))
                 }
                 {/* <span className="preview__genre">Rock</span>
