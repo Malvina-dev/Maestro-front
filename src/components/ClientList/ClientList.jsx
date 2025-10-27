@@ -64,19 +64,19 @@ function ClientList() {
                             sm={3}
                             className="client-list-result_item client-list-result_email_item"
                         >
-                            {/* {email} */}
+                            {client.email}
                         </Col>
                         <Col
                             sm={5}
                             className="client-list-result_item client-list-result_adress_item"
                         >
-                            {/* {localisation} */}
+                            {client.localisation}
                         </Col>
                         <Col
                             sm={2}
                             className="client-list-result_item client-list-result_phone-number_item"
                         >
-                            {/* {phonenumber} */}
+                            {client.phonenumber}
                         </Col>
                     </Row>
                 ))}
