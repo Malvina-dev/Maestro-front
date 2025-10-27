@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.jsx";
 import ClientCard from "./components/ClientList/Clientcard/ClientCard.jsx";
 import ClientInline from "./components/ClientList/ClientInline/ClientInline.jsx";
