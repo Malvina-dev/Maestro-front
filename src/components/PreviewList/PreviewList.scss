@@ -23,10 +23,32 @@
 
 }
 
+.preview__list__title__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .sort-icon {
     background-color: white;
+    color: black;
 }
 
 #dropdown-basic {
     background-color: white;
+    border: none;
+}
+
+.genre__menu {
+    width: 100vw;
+    border: solid 1px var.$color-admin;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.genre__item {
+    border-bottom: solid 1px var.$color-admin;
+    width: calc(100vw - 4rem);
+    margin: 2rem;
 }

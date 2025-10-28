@@ -24,19 +24,21 @@ function PreviewList() {
 
     return (
         <>
-                <h1 className="preview__list__title">Tous les extraits</h1>
-                {/* ajout du tri par genre */}
-                <Dropdown>
-                    <Dropdown.Toggle className="toggle-button" variant="success" id="dropdown-basic">
-                        <i className="sort-icon bi bi-sort-down fs-1"></i>
-                    </Dropdown.Toggle>
-                    {/* ici à faire dynamiquement */}
-                    <Dropdown.Menu>
-                        {/* <Dropdown.Item href="#">Rock</Dropdown.Item>
-                        <Dropdown.Item href="#">Pop</Dropdown.Item>
-                        <Dropdown.Item href="#">Jazz</Dropdown.Item> */}
-                    </Dropdown.Menu>
-                </Dropdown>
+                <div className="preview__list__title__container">
+                    <h1 className="preview__list__title">Tous les extraits</h1>
+                    {/* ajout du tri par genre */}
+                    <Dropdown>
+                        <Dropdown.Toggle className="toggle-button" variant="success" id="dropdown-basic">
+                            <i className="sort-icon bi bi-sort-down fs-1"></i>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="genre__menu">
+                        {/* ici à faire dynamiquement */}
+                            <Dropdown.Item className="genre__item" href="#">Rock</Dropdown.Item>
+                            <Dropdown.Item className="genre__item" href="#">Pop</Dropdown.Item>
+                            <Dropdown.Item className="genre__item" href="#">Jazz</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
 
                 <section className="preview__list">
                     {previewList.length != 0 && previewList.map((preview) => (
