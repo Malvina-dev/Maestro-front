@@ -36,9 +36,9 @@ export function addAGenre(label) {
 // PATCH /api/genre/:idGenre
 //genreRoute.patch('/admin/genre/:id', genresController.updateGenre)
 
-export function updateGenre(id,) {
+export function updateGenre(id, label) {
     return api_axios
-        .patch(`/admin/genre/${id}`)
+        .patch(`/admin/genre/${id}`,{label})
         .then(function (res) {
             console.log(res.data);
             return res.data;
