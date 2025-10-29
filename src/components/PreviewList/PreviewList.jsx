@@ -2,7 +2,7 @@ import Preview from "../Preview/Preview.jsx";
 import "./PreviewList.scss"
 import { getAllPreviews, getAllGenres, filterByGenre } from "../../api/apiPreview.js";
 import { useState, useEffect } from "react";
-// import Dropdown from 'react-bootstrap/Dropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 
 function PreviewList() {
@@ -52,15 +52,16 @@ function PreviewList() {
 
     return (
         <>
-                <div className="preview__list__title__container">
-                    <h1 className="preview__list__title">Tous les extraits</h1>
+                <h1 className="preview__list__title">Tous les extraits</h1>
+                <div className="preview__list__form__container">
                     {/* on a notre formulaire pour sélectionner un genre */}
-                    <Form.Select  onChange={handleChange} className="toggle-button" aria-label="Default select example">
-                        <option value=''>Trier par genre</option>
+                    <Form.Select size="lg" onChange={handleChange} className="genre__menu toggle-button" aria-label="Sort by genre">
+                        
+                        <option className="option-icon genre__item" value=''>Trier par genre</option>
                         {/* On map sur la liste des genres */}
                         {genreList.length != 0 && genreList.map((genre) => (
                             // On affiche le genre (genreList[index])
-                            <option value={genre.label} key={genre.id} className="genre__item">{genre.label}</option>
+                            <option value={genre.label} key={genre.id} className="genre__item">{genre.label.charAt(0).toUpperCase() + genre.label.slice(1)}</option>
                         ))}
                         {/* <option value="1">One</option>
                         <option value="2">Two</option>

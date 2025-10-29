@@ -31,7 +31,7 @@ export async function filterByGenre(genre) {
 
 export async function getAllGenres() {
     return api_axios
-        .get(`/admin/genre`)
+        .get(`/genre`)
         .then(function (res) {
             console.log(res.data);
             return res.data;
