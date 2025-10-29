@@ -3,9 +3,8 @@ import Footer from "./components/Footer/Footer.jsx";
 import Description from "./components/Description/Description";
 import PreviewList from "./components/PreviewList/PreviewList.jsx";
 import ProjectForm from "./components/ProjectForm/ProjectForm.jsx";
-import ClientCard from "./components/ClientList/Clientcard/ClientCard.jsx";
-import ClientInline from "./components/ClientList/ClientInline/ClientInline.jsx";
 import ClientList from "./components/ClientList/ClientList.jsx";
+import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
 import "./index.css";
 
@@ -19,6 +18,11 @@ function App() {
                 <ProjectForm />
                 <PreviewList />
                 {/* <ClientList /> */}
+                {/* <Description />
+                <ProjectForm />
+                <PreviewList /> */}
+                <ClientList />
+                <LoginForm />
             </main>
             <Footer />
         </div>

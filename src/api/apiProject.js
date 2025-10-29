@@ -1,18 +1,16 @@
-//Client
-// POST /api/project
-// projectRouter.post('/project', projectsController.askProject)
+import api_axios from "./axiosConfig.js";
 
-import axios from "axios";
+// import axios from "axios";
 
-const API_URL = "http://localhost:3000/api";
+// const API_URL = "http://localhost:3000/api";
 
 
 export async function createProject(projectData) {
     return (
-        axios
+        api_axios
             // premier argument = "/api/project" : c'est l'URL de la route API project du serveur
             // deuxième argument = projectData : c'est la données du corps de la requête
-            .post(`${API_URL}/project`, projectData)
+            .post(`/project`, projectData)
             .then(function (response) {
                 console.log("Projet créé :", response.data);
                 return response.data;
