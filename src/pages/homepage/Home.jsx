@@ -8,7 +8,7 @@ function Home() {
     return (
         <>
             <Link to="/compositions">Compositions</Link>
-
+            <Link to="/user">User</Link>
             <h1>Home</h1>
             <Description />
         </>
