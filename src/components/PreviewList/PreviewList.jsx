@@ -1,19 +1,33 @@
 import Preview from "../Preview/Preview.jsx";
 import "./PreviewList.scss"
-import { getAllPreviews, getAllGenres, filterByGenre } from "../../api/apiPreview.js";
+import { getAllPreviews, getAllGenres, filterByGenre, getAllStarPreviews } from "../../api/apiPreview.js";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 
 function PreviewList() {
 
-    const [selectedGenre, setSelectedGenre] = useState('rock');
+    const [selectedGenre, setSelectedGenre] = useState('');
     const [previewList, setPreviewList] = useState([]);
     const [genreList, setGenreList] = useState([]);
+    const [componentTitle, setComponentTitle] = useState('');
+
+    let location = useLocation().pathname;
+    console.log(location); // ex : /compositions
+    
 
     async function getPreviewList() {
-        const allPreviewList = await getAllPreviews();
-        setPreviewList(allPreviewList);
+        if (location === '/compositions') {
+            const allPreviewList = await getAllPreviews();
+            setPreviewList(allPreviewList);
+            setComponentTitle('Tous les extraits');
+        } else {
+            const allStarPreviews = await getAllStarPreviews();
+            console.log('allstarpreviews : ', allStarPreviews);
+            setPreviewList(allStarPreviews);
+            setComponentTitle('Quelques extraits')
+        }
     }
 
     async function getGenreList() {
@@ -43,8 +57,10 @@ function PreviewList() {
 
     useEffect(() => {
         getPreviewList();
-        getGenreList();
-    }, [])
+        if (location == '/compositions') {
+            getGenreList();
+        }
+    }, [location])
 
     // test genres en dur pour map ensuite
     // const genres = ["pop", "rock", "classique"]
@@ -52,7 +68,8 @@ function PreviewList() {
 
     return (
         <>
-                <h1 className="preview__list__title">Tous les extraits</h1>
+                <h1 className="preview__list__title">{componentTitle}</h1>
+                {location == '/compositions' && 
                 <div className="preview__list__form__container">
                     {/* on a notre formulaire pour sélectionner un genre */}
                     <Form.Select size="lg" onChange={handleChange} className="genre__menu toggle-button" aria-label="Sort by genre">
@@ -78,10 +95,12 @@ function PreviewList() {
                         </Dropdown.Menu>
                     </Dropdown> */}
                 </div>
+                }
+
 
                 <section className="preview__list">
                     {/* Ici, on map sur la liste des extraits */}
-                    {previewList.length != 0 ? previewList.map((preview) => (
+                    {previewList.length > 0 ? previewList.map((preview) => (
                         // On affiche l'extrait suivant l'index
                         <Preview key={preview.id} audiosrc={audioscr} title={preview.title} genres={preview.listGenres}/>
                     ))

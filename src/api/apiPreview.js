@@ -16,6 +16,18 @@ export async function getAllPreviews() {
         });
 }
 
+export async function getAllStarPreviews() {
+    return api_axios
+        .get('/preview/star')
+        .then(function (res) {
+            console.log(res.data);
+            return res.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}
+
 export async function filterByGenre(genre) {
     return api_axios
     .get("/preview/filter"+'?'+'genre='+genre)
