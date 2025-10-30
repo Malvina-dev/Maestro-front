@@ -48,9 +48,7 @@ function Register() {
                                     placeholder="Entrez votre adresse-mail"
                                     name="email"
                                     value={email}
-                                    onChange={(event) =>
-                                        setEmail(event.target.value)
-                                    }
+                                    onChange={(event) =>setEmail(event.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -62,9 +60,7 @@ function Register() {
                                     placeholder="Entrez votre mot de passe"
                                     name="password"
                                     value={password}
-                                    onChange={(event) =>
-                                        setPassword(event.target.value)
-                                    }
+                                    onChange={(event) =>setPassword(event.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -81,9 +77,7 @@ function Register() {
                                     placeholder="Confirmer votre mot de passe"
                                     name="confirmPassword"
                                     value={confirmPassword}
-                                    onChange={(event) =>
-                                        setconfirmPassword(event.target.value)
-                                    }
+                                    onChange={(event) =>setconfirmPassword(event.target.value)}
                                     required
                                 />
                             </Form.Group>

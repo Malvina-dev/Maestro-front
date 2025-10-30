@@ -7,29 +7,30 @@ import ClientList from "./components/ClientList/ClientList.jsx";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import Composition from "./pages/composition/Compositions.jsx";
-import Contact from "./pages/contact/Contact.jsx";
 import Homepage from "./pages/homepage/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import Setting from "./pages/setting/Setting.jsx";
 import User from "./pages/user/User.jsx";
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; */
-import Register from "./pages/register/Register.jsx";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; 
+import Setting from "./pages/setting/Setting.jsx";
+import Register from "./pages/register/Register.jsx";*/
+import Contact from "./pages/contact/Contact.jsx";
 
 import "./index.css";
-import Setting from "./pages/setting/Setting.jsx";
 
 function App() {
     return (
         <div className="App">
             <Header />
             <main>
-                <Register/> 
-{/*                  <Description />
+            {/*<Description />
                 <ProjectForm />
-                <PreviewList /> */}
-                {/* <ClientList /> */}
+                <PreviewList /> 
+                <ClientList /> 
                 <LoginForm />
-                <Setting />
+                <Register/> 
+                <Setting />*/}
+                <Contact/>
             </main>
             <Footer />
         </div>
