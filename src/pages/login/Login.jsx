@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import LoginForm from "../../components/LoginForm/LoginForm.jsx";
 import RegisterForm from "../../components/RegisterForm/RegisterForm.jsx";
 
@@ -10,11 +11,19 @@ function Login() {
     // S'inscrire
     // => RegisterForm
 
+    const [userHasAccount, setUserHasAccount] = useState(true);
+
+    useEffect(() => {
+        console.log("onClick");
+    }, [userHasAccount])
+
     return (
         <>
-        <h1>Login</h1>
-        <LoginForm />
-        <RegisterForm />
+            <h1>Login</h1>
+            {userHasAccount ? 
+            <LoginForm setUserHasAccount={setUserHasAccount}/>
+            : <RegisterForm setUserHasAccount={setUserHasAccount}/>}
+            
         </>
     )
 }
