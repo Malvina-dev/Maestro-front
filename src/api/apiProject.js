@@ -2,8 +2,10 @@
 import api_axios from "./axiosConfig.js";
 
 
+// ajouter/faire une demande de project
+// POST /api/project
+// projectRouter.post('/project', projectsController.askProject)
 
-// ajouter une description
 export async function createProject(projectData) {
     return (
         api_axios
@@ -20,3 +22,5 @@ export async function createProject(projectData) {
             })
     );
 }
+
+
