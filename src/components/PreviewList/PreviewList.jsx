@@ -1,8 +1,9 @@
 import Preview from "../Preview/Preview.jsx";
 import "./PreviewList.scss"
 import { getAllPreviews, getAllGenres, filterByGenre, getAllStarPreviews } from "../../api/apiPreview.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router";
+import UserContext from "../../UserContext.jsx";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 
@@ -12,6 +13,9 @@ function PreviewList() {
     const [previewList, setPreviewList] = useState([]);
     const [genreList, setGenreList] = useState([]);
     const [componentTitle, setComponentTitle] = useState('');
+    const userIs = useContext(UserContext)
+
+    console.log('role après context', userIs.userIs);
 
     let location = useLocation().pathname;
     console.log(location); // ex : /compositions
@@ -111,6 +115,11 @@ function PreviewList() {
                     <Preview audiosrc={audioscr} title="titre 2" genres={genres}/>
                     <Preview audiosrc={audioscr} title="titre 3" genres={genres}/> */}
                 </section>
+
+                {userIs === 'admin' &&
+                <section className="admin-plus">
+                    <button className="button-plus"><i className="plus-icon bi bi-plus-square-fill"></i></button>
+                </section>}
         </>
     )
 

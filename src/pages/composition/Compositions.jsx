@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import UserContext from "../../UserContext.jsx";
+// import { useContext } from "react";
+// import UserContext from "../../UserContext.jsx";
 import PreviewList from "../../components/PreviewList/PreviewList.jsx";
 
 function Composition() {
@@ -9,9 +9,9 @@ function Composition() {
         // Liste des compositions (previews)
         // => PreviewList
 
-        const userIs = useContext(UserContext)
+        // const userIs = useContext(UserContext)
 
-        console.log(userIs);
+        // console.log(userIs);
         
 
     return (

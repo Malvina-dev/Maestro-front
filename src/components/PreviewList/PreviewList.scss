@@ -63,3 +63,18 @@
     // margin: .5rem 3rem .5rem 3rem;
     font-family: var.$font-alt;
 }
+
+.admin-plus {
+    display: flex;
+    justify-content: center;
+    // border: none;
+}
+
+.button-plus {
+    border: none;
+}
+
+.plus-icon {
+    margin: 2rem;
+    color: grey;
+}
