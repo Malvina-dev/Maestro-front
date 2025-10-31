@@ -1,4 +1,5 @@
-
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import ContactRequestList from "../../components/ContactRequestList/ContactRequestList.jsx";
 
 function Admin() {
 
@@ -14,8 +15,10 @@ function Admin() {
         // => ContactRequestList
 
     return (
+        <>
         <h1>Mon espace administrateur</h1>
-
+        <ContactRequestList />
+        </>
     )
 }
 
