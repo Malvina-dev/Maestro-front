@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import UserContext from "../../UserContext.jsx";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
+import PreviewForm from "../PreviewForm/PreviewForm.jsx";
 
 function PreviewList() {
 
@@ -13,9 +14,14 @@ function PreviewList() {
     const [previewList, setPreviewList] = useState([]);
     const [genreList, setGenreList] = useState([]);
     const [componentTitle, setComponentTitle] = useState('');
-    const userIs = useContext(UserContext)
+    const [previewForm, setPreviewForm] = useState('');
+    const [isPlus, setIsPlus] = useState(true);
+    // ici tu récupères tout l'objet => {userIs, loginProvider, logoutProvider}
+    // pour cela que tu dois faire userIs.userIs
+    // essai de faire {userIs} pour voir si tu y accède en direct ;) 
+    const {userIs} = useContext(UserContext)
 
-    console.log('role après context', userIs.userIs);
+    console.log('role après context', userIs);
 
     let location = useLocation().pathname;
     console.log(location); // ex : /compositions
@@ -56,6 +62,16 @@ function PreviewList() {
         } else {
             getPreviewByGenreFilter(genre);
         }
+    }
+
+    function handleAdd(e) {
+        e.preventDefault();
+        if (previewForm === '') {
+            setPreviewForm(<PreviewForm />)
+        } else {
+            setPreviewForm('');
+        }
+        setIsPlus(!isPlus);
     }
 
 
@@ -117,9 +133,21 @@ function PreviewList() {
                 </section>
 
                 {userIs === 'admin' &&
-                <section className="admin-plus">
-                    <button className="button-plus"><i className="plus-icon bi bi-plus-square-fill"></i></button>
-                </section>}
+                <div>
+                    <section className="admin__plus">
+                        <button onClick={handleAdd} className="button__plus">
+                            {isPlus === true ?
+                            <i className="plus__icon fs-1 bi bi-plus-square-fill"></i>
+                            :
+                            <i className="minus__icon fs-1 bi bi-dash-square-fill"></i>
+                            }
+                        </button>
+                    </section>
+                    <section className="preview__form">
+                        {previewForm}
+                    </section>
+                </div>
+                }
         </>
     )
 

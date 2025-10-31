@@ -9,9 +9,9 @@ function Preview({title, audiosrc, genres}) {
     const [audioElement, setAudioElement] = useState();
     const [playIsHidden, setPlayIsHidden] = useState(false);
     const [pauseIsHidden, setPauseIsHidden] = useState(true);
-    const userIs = useContext(UserContext)
+    // const userIs = useContext(UserContext)
 
-    console.log(userIs);
+    // console.log(userIs);
 
     function toggleHidden() {
         setPlayIsHidden(!playIsHidden);
