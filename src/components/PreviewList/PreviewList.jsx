@@ -80,7 +80,7 @@ function PreviewList() {
         if (location == '/compositions') {
             getGenreList();
         }
-    }, [location])
+    }, [])
 
     // test genres en dur pour map ensuite
     // const genres = ["pop", "rock", "classique"]
