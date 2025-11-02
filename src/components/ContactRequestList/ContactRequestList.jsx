@@ -6,8 +6,8 @@ function ContactRequestList() {
     const [requests, setRequests] = useState([]);
 
     async function getAllRequestList() {
-        const results = await findAll();
-        setRequests(results);
+        const allRequestList = await findAll();
+        setRequests(allRequestList);
     }
 
     useEffect(() => {
