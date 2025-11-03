@@ -3,6 +3,7 @@ import UserDataForm from "../../components/UserDataForm/User/UserDataForm.jsx";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getMyProfile } from "../../api/apiUser.js";
+import "./Setting.scss";
 
 function SettingPage() {
     // LES COMPOSANTS QUI SERONT SUR LA PAGE:
@@ -25,6 +26,14 @@ function SettingPage() {
         getMySetting();
     }, []);
 
+    // Afficher le formulaire de creation d'entreprise
+    const [addCompany, setAddCompany] = useState(false);
+
+    function companySettingsHandleClick(event) {
+        event.preventDefault();
+        setAddCompany(true);
+    }
+
     return (
         <>
             {isLoading ? (
@@ -33,15 +42,23 @@ function SettingPage() {
                 <div>
                     <h1>Setting</h1>
                     <UserDataForm />
+
                     {setting.user.company_id != null ? (
-                        // mettre en prod une valeur pour dire ici on fait un update
-                        //<CompanyDataForm(true) />
-                        <CompanyDataForm />
+                        // Update
+                        <CompanyDataForm onUpdate={true} />
+                    ) : !addCompany ? (
+                        <div className="professionnel-div">
+                            <p>Je suis un professionnel ?</p>
+                            <button
+                                className="addCompany-button"
+                                variant="displayCompanyDataForm-button"
+                                onClick={companySettingsHandleClick}
+                            >
+                                Enregistrer les informations de mon entreprise
+                            </button>
+                        </div>
                     ) : (
-                        <button></button>
-                        //ici afficher companyDataForm mais avec une props pour dire
-                        //qu'on fait un post
-                        //<CompanyDataForm(false) />
+                        <CompanyDataForm onUpdate={false} />
                     )}
                 </div>
             )}

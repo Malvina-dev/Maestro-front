@@ -31,9 +31,9 @@ export async function getMyCompany() {
 // Ajouter une entreprise
 // POST /api/company
 // companyRoute.post('/company', companyController.create)
-export async function createCompany() {
+export async function createCompany(newCompanyData) {
     return api_axios
-        .post(`/company`)
+        .post(`/company`, newCompanyData)
         .then(function (res) {
             console.log(res.data);
             return res.data;

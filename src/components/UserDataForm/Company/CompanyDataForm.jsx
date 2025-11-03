@@ -7,9 +7,10 @@ import "../DataForm.scss";
 import { useState } from "react";
 import { getMyCompany } from "../../../api/apiCompany.js";
 import { updateCompany } from "../../../api/apiCompany.js";
+import { createCompany } from "../../../api/apiCompany.js";
 import { useEffect } from "react";
 
-function CompanyDataForm() {
+function CompanyDataForm({ onUpdate }) {
     // Voir mes informations d'entreprise
     const [companySetting, setCompanySetting] = useState({});
 
@@ -27,6 +28,7 @@ function CompanyDataForm() {
     const [newCompanyName, setnewCompanyName] = useState("");
     const [newCompanyLocalisation, setNewCompanyLocalisation] = useState("");
     const [newSiret, setNewSiret] = useState("");
+    // const [onUpdate, setOnUpdate] = useState(false);
 
     function companyHandelSubmit(event) {
         // console.log("companyHandelSubmit");
@@ -36,10 +38,11 @@ function CompanyDataForm() {
             localisation: newCompanyLocalisation,
             siret: newSiret,
         };
-        // si props onUpdate
-        updateCompany(newCompanyData);
-        // sinon on appel
-        //postCompany(newCompanyData);
+        // setOnUpdate(true);
+
+        onUpdate
+            ? updateCompany(newCompanyData)
+            : createCompany(newCompanyData);
     }
 
     return (
