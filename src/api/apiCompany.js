@@ -36,6 +36,7 @@ export async function createCompany(newCompanyData) {
         .post(`/company`, newCompanyData)
         .then(function (res) {
             console.log(res.data);
+            window.location.reloead();
             return res.data;
         })
         .catch(function (error) {
