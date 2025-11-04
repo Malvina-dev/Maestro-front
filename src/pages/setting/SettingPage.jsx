@@ -19,7 +19,7 @@ function SettingPage() {
         const myProfile = await getMyProfile();
         setSetting(myProfile);
         setIsLoading(false);
-        // console.log("Dans ma page setting :", myProfile);
+        console.log("Dans ma page setting :", myProfile);
     }
 
     useEffect(() => {

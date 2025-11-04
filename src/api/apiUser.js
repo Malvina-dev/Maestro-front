@@ -19,7 +19,7 @@ export async function loginUser(userData) {
     return api_axios
         .post(`/user/login`, userData)
         .then(function (res) {
-            console.log('res.data du login : ', res.data);            
+            console.log("res.data du login : ", res.data);
             return res.data;
         })
         .catch(function (error) {
@@ -53,7 +53,7 @@ export async function updateMyProfile(newUserData) {
     return api_axios
         .patch(`/user`, newUserData)
         .then(function (res) {
-            // console.log("api console :", newUserData);
+            console.log("api console :", newUserData);
             return res.data;
         })
         .catch(function (error) {
