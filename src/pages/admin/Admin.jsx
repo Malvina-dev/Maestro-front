@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import ContactRequestList from "../../components/ContactRequestList/ContactRequestList.jsx";
+import ProjectList from "../../components/ProjectList/ProjectList.jsx";
 // import ClientList from "../../components/ClientList/ClientList.jsx"
 function Admin() {
 
@@ -19,6 +20,7 @@ function Admin() {
         <h1>Mon espace administrateur</h1>
         {/* <ClientList /> */}
         <ContactRequestList />
+        <ProjectList />
         </>
     )
 }

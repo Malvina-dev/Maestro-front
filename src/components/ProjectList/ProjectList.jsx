@@ -1,7 +1,10 @@
 import { Card, Badge, Row, Col } from "react-bootstrap";
 import { getAllProjectList, getFilteredProjectList } from "../../api/apiProjectList.js";
-import { useState, useEffect } from "react";
+import { getAllAdminProjects, getFilteredAdminProjects } from "../../api/apiProjectList.js";
+import { useState, useEffect, useContext } from "react";
+import UserContext from "../../UserContext.jsx";
 import Form from 'react-bootstrap/Form';
+
 
 
 function ProjectList() {
@@ -10,27 +13,45 @@ function ProjectList() {
     const [projectFilter, setProjectFilter] = useState ('');
     const [statusList, setStatusList] = useState ([]);
 
+    // je récupère le rôle user dans le UserContext
+    const {userIs} = useContext(UserContext);
+    console.log('role après context', userIs);
+
+
 
     // je récupère les projets dans l'API coté back (Lister tous les projects)
     async function getProjects() {
-        // l'api me renvoie la liste des projets
-        // *** A MODIFIER si c'est un client c'est bien getAllProjectList sinon getAllAdminProjects
-        const result = await getAllProjectList();
-
-        setStatusList (result.Liststatus);
-        // les projets se mettent dans le usestate pour les afficher
-        setProjectList(result.projects);
+        // l'api me renvoie la liste des projets (si USER ou ADMIN)
+        if (userIs === 'client'){ 
+            const result = await getAllProjectList();
+            setStatusList (result.Liststatus);
+                // les projets se mettent dans le usestate pour les afficher
+            setProjectList(result.projects);
+        } else { 
+            // sinon l'api me renvoie la liste des projets ADMIN
+            const result = await getAllAdminProjects();
+            setStatusList (result.Liststatus);
+                // les projets se mettent dans le usestate pour les afficher
+            setProjectList(result.projects);
+        }
     }
+
 
     // je récupère les status du projet dans l'API coté back (Trier les projets par filtre)
     async function getStatusProject(status) {
-        // l'api me renvoie les projets filtrés suivant le status choisis
+        // l'api me renvoie les projets filtrés suivant le status choisis (si USER ou ADMIN)
         // *** A MODIFIER si c'est un client c'est bien getFilteredProjectList sinon getFilteredAdminProjects
-        const result  = await getFilteredProjectList(status);
-        console.log(result.projects);
-        
-        // je mets la liste filtrés dans le usestate pour les afficher
-        setProjectList(result.projects);
+        if (userIs === 'client'){ 
+            const result  = await getFilteredProjectList(status);
+            console.log(result.projects);
+            // je mets la liste filtrés dans le usestate pour les afficher
+            setProjectList(result.projects);
+        } else {
+            const result  = await getFilteredAdminProjects(status);
+            console.log(result.projects);
+            // je mets la liste filtrés dans le usestate pour les afficher
+            setProjectList(result.projects);
+        }
     }
 
     

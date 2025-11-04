@@ -13,6 +13,7 @@ function Header() {
     const commonLinks = [
         { label: "Accueil", to: "/" },
         { label: "Compositions", to: "/compositions" },
+        { label: "user", to: "/user"},
     ];
 /* 
     const handleLogin = (role) => {
