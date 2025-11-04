@@ -1,6 +1,6 @@
 import { Card, Badge, Row, Col } from "react-bootstrap";
 import { getAllProjectList, getFilteredProjectList } from "../../api/apiProjectList.js";
-import { getAllAdminProjects, getFilteredAdminProjects } from "../../api/apiProjectList.js";
+import { getAllAdminProjects, getFilteredAdminProjects, updateProjectStatus, deleteProject  } from "../../api/apiProjectList.js";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../../UserContext.jsx";
 import Form from 'react-bootstrap/Form';
@@ -8,10 +8,10 @@ import Form from 'react-bootstrap/Form';
 
 
 function ProjectList() {
-    // projectList est un tableau vide contenant tous les projets
-    const [projectList, setProjectList] = useState([]);
-    const [projectFilter, setProjectFilter] = useState ('');
-    const [statusList, setStatusList] = useState ([]);
+    // permet de gérer l'affichage de la liste de mes projets et leur status
+    const [projectList, setProjectList] = useState([]); // Liste des projets affichés
+    const [projectFilter, setProjectFilter] = useState (''); // Filtre appliqué aux projets
+    const [statusList, setStatusList] = useState ([]); // Liste des statuts disponibles
 
     // je récupère le rôle user dans le UserContext
     const {userIs} = useContext(UserContext);
@@ -51,6 +51,10 @@ function ProjectList() {
             // je mets la liste filtrés dans le usestate pour les afficher
             setProjectList(result.projects);
         }
+    }
+
+    async function updateProjectStatus () {
+
     }
 
     
