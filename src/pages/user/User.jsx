@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import UserDataForm from "../../components/UserDataForm/UserDataForm.jsx";
+import ProjectList from "../../components/ProjectList/ProjectList.jsx";
 
 function User() {
 
@@ -13,7 +12,7 @@ function User() {
     return (
         <>
         <h1>User</h1>
-        {/* <UserDataForm /> */}
+        <ProjectList />
         </>
     )
 }
