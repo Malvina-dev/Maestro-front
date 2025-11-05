@@ -1,5 +1,5 @@
 function WaitingProjectList() {
-    return <h1>Demandes de projets</h1>;
+    return <p>Composant à créer</p>;
 }
 
 export default WaitingProjectList;

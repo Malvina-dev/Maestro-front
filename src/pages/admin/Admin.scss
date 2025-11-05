@@ -1,26 +1,29 @@
 @use "../style/var";
 @use "../style/mixin";
 
-.project-list-item {
-    box-shadow: 3px 3px 15px 1px rgba(133, 132, 132, 0.31);
-    margin-bottom: 2rem;
+.admin-page-title {
+    justify-self: center;
+    margin-top: 3rem;
+}
+
+.admin-container {
+    margin-top: 3rem;
 }
 
 .contact-request-list-item {
-    box-shadow: 3px 3px 15px 1px rgba(133, 132, 132, 0.31);
-    margin-bottom: 2rem;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
 
 .waiting-project-list-item {
-    box-shadow: 3px 3px 15px 1px rgba(133, 132, 132, 0.31);
-    margin-bottom: 2rem;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
 }
 
 .list-item {
     box-shadow: 3px 3px 15px 1px rgba(133, 132, 132, 0.31);
-    margin-bottom: 2rem;
-    margin-left: 1rem;
+    margin-bottom: 1rem;
     padding: 1rem;
+}
+
+.admin-item-title {
+    font-size: 1.8rem;
 }

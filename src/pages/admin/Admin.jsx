@@ -23,28 +23,37 @@ function Admin() {
 
     return (
         <>
-            <h1>Mon espace administrateur</h1>
+            <h1 className="admin-page-title">Mon espace administrateur</h1>
 
             <Container className="admin-container">
-                <Row className="project-list-item">
+                <Row className="list-item project-list-item">
+                    <h2 className="admin-item-title">Les projets en cours</h2>
                     <ProjectList />
                 </Row>
 
                 <Row>
-                    <Col className="contact-request-list-item">
+                    <Col className="list-item contact-request-list-item">
+                        <h2 className="admin-item-title">
+                            Les demandes de contact
+                        </h2>
                         <ContactRequestList />
                     </Col>
 
-                    <Col className="waiting-project-list-item">
+                    <Col className="list-item waiting-project-list-item">
+                        <h2 className="admin-item-title">
+                            Les demandes de projets
+                        </h2>
                         <WaitingProjectList />
                     </Col>
                 </Row>
 
                 <Row className="list-item">
+                    <h2 className="admin-item-title">Les genres</h2>
                     <GenreList />
                 </Row>
 
                 <Row className="list-item">
+                    <h2 className="admin-item-title">La liste des clients</h2>
                     <ClientList />
                 </Row>
             </Container>
