@@ -19,6 +19,7 @@ function PreviewList({location}) {
     // const [updatePreviewForm, setUpdatePreviewForm] = useState('');
     const [isPlus, setIsPlus] = useState(true);
     const [pencilIsClicked, setPencilIsClicked] = useState(false);
+    const [pencilClicked, setPencilClicked] = useState();
     // ici tu récupères tout l'objet => {userIs, loginProvider, logoutProvider}
     // pour cela que tu dois faire userIs.userIs
     // essai de faire {userIs} pour voir si tu y accède en direct ;) 
@@ -83,6 +84,9 @@ function PreviewList({location}) {
     function handlePencil(e) {
         e.preventDefault();
         setPencilIsClicked(!pencilIsClicked);
+        console.log(e.target.value);
+        const previewId = e.target.value;
+        setPencilClicked(previewId);
     }
 
 
@@ -125,18 +129,22 @@ function PreviewList({location}) {
 
                 <section className="preview__list">
                     {/* Ici, on map sur la liste des extraits */}
-                    {previewList.length > 0 ? previewList.map((preview) => (
+                    {previewList.length > 0 ? previewList.map((preview, index) => (
                         // On affiche l'extrait suivant l'index
                         <>
                         <article className="preview__item">
+                            {/* MODIFIER AUDIOSRC */}
                             <Preview key={preview.id} audiosrc={audioscr} title={preview.title} genres={preview.listGenres}/>
                             <div className="pencil-icon__container">
-                                {userIs === 'admin' && <button  onClick={handlePencil}><i className="pencil-icon fs-2 bi bi-pencil-square"></i></button>}
+                                {userIs === 'admin' && <button value={preview.id} onClick={handlePencil}><i className="pencil-icon fs-2 bi bi-pencil-square"></i></button>}
                             </div>
                         </article>
-                        {/* <article className="update__preview__form">
-                            {<UpdatePreviewForm pencilIsClicked={pencilIsClicked} genreList={genreList} id={preview.id}/>}
-                        </article> */}
+
+                        {(pencilIsClicked === true && pencilClicked == preview.id) &&
+                            <article className="update__preview__form">
+                                    <UpdatePreviewForm key={index} genreList={genreList} id={preview.id}/>
+                            </article>
+                        }
                         </>
                     ))
                     : <p>Pas d'extraits</p>

@@ -5,12 +5,12 @@ import Button from 'react-bootstrap/Button';
 import { updatePreview } from "../../api/apiPreview.js";
 
 
-function UpdatePreviewForm({ genreList, id, pencilIsClicked }) {
+function UpdatePreviewForm({ genreList, id }) {
 
     const {userIs} = useContext(UserContext)
-    const [formVisible, setFormVisible] = useState(false);
+    // const [formVisible, setFormVisible] = useState(false);
 
-    pencilIsClicked === true ? setFormVisible(true) : setFormVisible(false);
+    // pencilIsClicked === true ? setFormVisible(true) : setFormVisible(false);
 
     // console.log(id);
     
