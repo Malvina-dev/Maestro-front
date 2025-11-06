@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import "./ProjectList.scss";
 import { Trash } from "react-bootstrap-icons";
 import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -29,12 +30,17 @@ function ProjectList() {
     const {userIs} = useContext(UserContext);
     console.log('role après context', userIs);
 
+    const navigate = useNavigate();
 
 
     // je récupère les projets dans l'API coté back (Lister tous les projects)
     async function getProjects() {
-        // l'api me renvoie la liste des projets (si USER ou ADMIN)
+        if (userIs === 'visitor') {
+            navigate("/");   
+        // ** METTRE UN TOAST AFIN D'INDIQUER CONNECTER VOUS (page utilisateur)
+        }
         if (userIs === 'client'){ 
+            // l'api me renvoie la liste des projets (si USER ou ADMIN)
             const result = await getAllProjectList();
             setStatusList (result.Liststatus);
                 // les projets se mettent dans le usestate pour les afficher
@@ -108,9 +114,6 @@ function ProjectList() {
             } catch (error) {
                 console.error("erreur lors de la suppression du projet", error);
             }
-            // getAllProjectList récupère la liste mise à jour
-            // setProjectList met à jour l'affichage
-            // getAllProjectList().then((data) => setProjectList(data || []));
         };
 
 
@@ -164,15 +167,6 @@ function ProjectList() {
                                     </Button>
                                     </Modal.Footer>
                                 </Modal>
-                                {/*<div   A SUPPRIMER
-                                    className="d-flex align-items-center justify-content-center"
-                                    style={{
-                                        backgroundColor: "#a3c1b0",
-                                        width: "80px",
-                                        height: "80px",
-                                        borderRadius: "15px",
-                                    }}
-                                ></div>*/}
                             </Col>
 
                             <Col className="text-center">
