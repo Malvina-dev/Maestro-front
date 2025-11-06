@@ -5,6 +5,8 @@ import { useState, useEffect, useContext } from "react";
 import UserContext from "../../UserContext.jsx";
 import Form from 'react-bootstrap/Form';
 import "./ProjectList.scss";
+import { Trash } from "react-bootstrap-icons";
+import Modal from 'react-bootstrap/Modal';
 
 
 
@@ -14,6 +16,12 @@ function ProjectList() {
     const [projectFilter, setProjectFilter] = useState (''); // Filtre appliqué aux projets
     const [statusList, setStatusList] = useState ([]); // Liste des statuts disponibles
     const [newStatus, setNewStatus] = useState (''); 
+
+    // Modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
 
@@ -59,14 +67,6 @@ function ProjectList() {
 
 
 
-    // async function updateProject (id, label) {
-
-    //     if (userIs === 'admin'){
-            
-    //     }
-
-    // }
-
     
     // la fonction est déclénchée quand la valeur du filter est changée
     function handleChange(e) {
@@ -97,20 +97,21 @@ function ProjectList() {
         console.log('xxxx:', e.target.selectedOptions[0].id);
         const result = updateProjectStatus(e.target.selectedOptions[0].id, e.target.value);
         console.log(newStatus);
-
-        //const statusToChange = await updateProjectStatus(  )
     }
 
-    // function handleSubmit(e) {
-    //     e.preventDefault(); // empêche le rechargement par défaut
-    //     console.log('onSubmit');
-        
-    //     console.log(e.target.value);
-        
-    
-    // }
-
-
+        // supprimer un projet : admin
+        async function handleDelete(id) {
+            // on appelle l'API pour supprimer le projet dans la BDD
+            try {
+                await deleteProject(id);
+                getProjects();
+            } catch (error) {
+                console.error("erreur lors de la suppression du projet", error);
+            }
+            // getAllProjectList récupère la liste mise à jour
+            // setProjectList met à jour l'affichage
+            // getAllProjectList().then((data) => setProjectList(data || []));
+        };
 
 
     // useeffect s'exécute quand le composant apparait sur la page
@@ -135,9 +136,8 @@ function ProjectList() {
             </Form.Select>
             {/* si projectList existe (!=null) et n’est pas vide (length != 0), alors j’affiche la liste des projets avec map */}
             {(projectList != null && projectList.length != 0) && projectList.map((project) => (
-                <Form>
+                <Form key={project.id}>
                 <Card
-                    key={project.id}
                     className="border border-primary rounded-3 shadow-sm"
                     style={{
                         backgroundColor: "#f8f5e4",
@@ -148,7 +148,23 @@ function ProjectList() {
                     <Card.Body>
                         <Row className="align-items-center">
                             <Col xs="auto">
-                                <div   
+                            < Trash size={30} onClick={(e) => {e.preventDefault(); handleShow() }}/>
+                            
+                                <Modal show={show} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                    <Modal.Title>Modal heading</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Etes-vous sur de vouloir supprimer ?</Modal.Body>
+                                    <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Close
+                                    </Button>
+                                    <Button variant="primary" onClick={(e) => {e.preventDefault(); handleDelete(project.id); handleClose()}}>
+                                        Save Changes
+                                    </Button>
+                                    </Modal.Footer>
+                                </Modal>
+                                {/*<div   A SUPPRIMER
                                     className="d-flex align-items-center justify-content-center"
                                     style={{
                                         backgroundColor: "#a3c1b0",
@@ -156,7 +172,7 @@ function ProjectList() {
                                         height: "80px",
                                         borderRadius: "15px",
                                     }}
-                                ></div>
+                                ></div>*/}
                             </Col>
 
                             <Col className="text-center">
@@ -190,17 +206,6 @@ function ProjectList() {
                                             </Form.Select>
                                         </Form.Group>
                                     </section>
-                                {/* <Badge
-                                    pill
-                                    style={{
-                                        backgroundColor: "#a3c1b0",
-                                        color: "black",
-                                        fontSize: "0.9rem",
-                                    }}
-                                    className="mb-2 d-block"
-                                >
-                                    {project.status}
-                                </Badge> */}
                                 </div>
                                 }       
 
@@ -219,7 +224,6 @@ function ProjectList() {
                             </Col>
                         </Row>
                     </Card.Body>
-                    {/* <Button>Modifier</Button> */}
                 </Card>
             </Form>
             ))}
