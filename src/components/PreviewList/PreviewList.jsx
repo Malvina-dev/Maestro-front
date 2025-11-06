@@ -187,10 +187,10 @@ function PreviewList({location}) {
                 <div>
                     <section className="admin__plus">
                         <button onClick={handleAdd} className="button__plus">
-                            {isPlus === true ?
-                            <i className="plus__icon fs-1 bi bi-plus-square-fill"></i>
+                            {isPlus === true ?                       
+                                <PlusSquareFill size={40} className="plus__icon" />                                               
                             :
-                            <i className="minus__icon fs-1 bi bi-dash-square-fill"></i>
+                                <DashSquareFill size={40} className="minus__icon" />
                             }
                         </button>
                     </section>

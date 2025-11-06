@@ -77,17 +77,18 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
         <>
             {error && <p className="text-danger">{error}</p>}
             <Form onSubmit={handleSubmit} id='updatePreview' method='patch'>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor='previewTitle'>Titre de l'extrait</Form.Label>
-                    <Form.Control value={formData.title} onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))} id='previewTitle' name='title' type="text" placeholder="Entrer le titre" />
+                <h2 className="form__title">Modifier l'extrait</h2>
+                <Form.Group className="mb-3 form__group">
+                    <Form.Label className='form__label' htmlFor='previewTitle'>Titre de l'extrait</Form.Label>
+                    <Form.Control className='form__input' value={formData.title} onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))} id='previewTitle' name='title' type="text" placeholder="Entrer le titre" />
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor='previewDate'>Date de l'extrait</Form.Label>
-                    <Form.Control value={formData.date} onChange={(e) => setFormData(prev => ({...prev, date: e.target.value}))} id='previewDate' name='date' type="date"/>
+                <Form.Group className="mb-3 form__group">
+                    <Form.Label className='form__label' htmlFor='previewDate'>Date de l'extrait</Form.Label>
+                    <Form.Control className='form__input' value={formData.date} onChange={(e) => setFormData(prev => ({...prev, date: e.target.value}))} id='previewDate' name='date' type="date"/>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='star-switch'>Voulez-vous rendre cet extrait accessible sur la page d'accueil ?</Form.Label>
-                    <Form.Check
+                <Form.Group className="form__group">
+                    <Form.Label className='form__label' htmlFor='star-switch'>Voulez-vous rendre cet extrait accessible sur la page d'accueil ?</Form.Label>
+                    <Form.Check className='form__input'
                         checked={formData.isStar}
                         onChange={(e) => setFormData(prev => ({...prev, isStar: e.target.checked}))}
                         name='isStar'
@@ -96,11 +97,11 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
                         label="Rendre l'extrait star"
                     />
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor='genre'>Ajoute un ou plusieurs genres</Form.Label>
+                <Form.Group className="mb-3 form__group">
+                    <Form.Label className='form__label' htmlFor='genre'>Ajoute un ou plusieurs genres</Form.Label>
                     {genreList.length > 0 && genreList.map((genre) => (
                         <Form.Check key={genre.id}
-                            className='checkBox'
+                            className='checkBox form__input'
                             inline
                             label={genre.label}
                             name={genre.label}
@@ -111,8 +112,8 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
                         />
                     ))}
                 </Form.Group>
-                <div className="d-flex justify-content-end">
-                    <Button type="submit" disabled={saving}>
+                <div className="d-flex form__button__container">
+                    <Button className="preview__form__button" type="submit" disabled={saving}>
                         {saving ? "Enregistrement..." : "Enregistrer"}
                     </Button>
                 </div>

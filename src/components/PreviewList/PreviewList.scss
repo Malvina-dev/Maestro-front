@@ -139,3 +139,21 @@
 .accordion-header {
     width: fit-content;
 }
+
+.admin__plus {
+    display: flex;
+    justify-content: center;
+}
+
+.button__plus {
+    border: none;
+    background-color: white;
+}
+
+.plus__icon, .minus__icon {
+    color: lightgray;
+}
+
+.plus__icon:hover, .minus__icon:hover {
+    color: grey;
+}
