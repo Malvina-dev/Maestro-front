@@ -6,64 +6,94 @@ import { updatePreview } from "../../api/apiPreview.js";
 import { getPreviewById } from "../../api/apiPreview.js";
 
 
-function UpdatePreviewForm({ genreList, id }) {
+function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) {
 
-    const [previewData, setPreviewData] = useState({});
-    const [switchState, setSwitchState] = useState(false);
-    const [newTitle, setNewTitle] = useState("");
-    const [newDate, setNewDate] = useState("");
-    const [newIsStar, setNewIsStar] = useState("");
-    const [newGenres, setNewGenres] = useState("");
+    // un seul state pour tout le formulaire (genres stocke les ids)
+    const [formData, setFormData] = useState(() => ({
+        title: preview?.title || "",
+        isStar: preview?.isStar ?? false,
+        date: preview?.date ? new Date(preview.date).toISOString().slice(0,10) : "",
+        // on transduit listGenres (objets) en tableau d'ids 
+        // afin de faciliter la gestion des checkbox
+        genres: preview?.listGenres ? preview.listGenres.map(g => g.id) : []
+    }));
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState(null);
 
     const {userIs} = useContext(UserContext)
     
     // il faut recevoir les infos de la preview
 
-    async function getPreview(previewId) {
-        const selectedPreview = await getPreviewById(previewId);
-        setPreviewData(selectedPreview);
-        if (previewData.isStar === true) {
-            setSwitchState(true);
-        }
+    function toggleGenre(genreId) {
+        setFormData(prev => {
+            // on regarde si genreId est déjà dans la liste
+            const has = prev.genres.includes(genreId);
+            // on ajoute ou enlève selon le cas
+            // on reprend l'ancien tableau pour ne pas perdre les autres genres
+            // et en fonction de la présence on filtre ou on ajoute
+            return { ...prev, genres: has ? prev.genres.filter(id => id !== genreId) : [...prev.genres, genreId] };
+        });
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        const newPreviewData = {
-            title: newTitle,
-            date: newDate,
-            isStar: newIsStar,
-            listGenres: newGenres
+        setSaving(true);
+        setError(null);
+
+        const payload = {
+            title: formData.title,
+            date: formData.date || null,
+            isStar: formData.isStar,
+            // envoi au backend sous forme  "1,2"
+            genres: formData.genres.length ? formData.genres.join(',') : ""
+        };
+
+        try {
+            await updatePreview(id, payload); 
+            onSaved();
+        } catch (err) {
+            console.error("Erreur mise à jour preview:", err);
+            setError("Échec de la mise à jour.");
+        } finally {
+            setSaving(false);
         }
-        // il va falloir update preview avec newPreviewData
     }
 
+    // synchronise formData si la prop preview change
     useEffect(() => {
-        getPreview(id);
-    }, [])
+        if (!preview) return;
+        setFormData({
+            title: preview.title || "",
+            isStar: preview.isStar ?? false,
+            date: preview.date ? new Date(preview.date).toISOString().slice(0,10) : "",
+            genres: preview.listGenres ? preview.listGenres.map(g => g.id) : []
+        });
+    }, [preview]);
+
+    if (!preview) return null;
 
     return (
 
         <>
+            {error && <p className="text-danger">{error}</p>}
             <Form onSubmit={handleSubmit} id='updatePreview' method='patch'>
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor='previewTitle'>Titre de l'extrait</Form.Label>
-                    <Form.Control defaultValue={previewData.title} id='previewTitle' name='title' type="text" placeholder="Entrer le titre" />
+                    <Form.Control value={formData.title} onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))} id='previewTitle' name='title' type="text" placeholder="Entrer le titre" />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor='previewDate'>Date de l'extrait</Form.Label>
-                    <Form.Control defaultValue={previewData.date} id='previewDate' name='date' type="date"/>
+                    <Form.Control value={formData.date} onChange={(e) => setFormData(prev => ({...prev, date: e.target.value}))} id='previewDate' name='date' type="date"/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label htmlFor='star-switch'>Voulez-vous rendre cet extrait accessible sur la page d'accueil ?</Form.Label>
                     <Form.Check
-
-                        
+                        checked={formData.isStar}
+                        onChange={(e) => setFormData(prev => ({...prev, isStar: e.target.checked}))}
                         name='isStar'
                         type="switch"
                         id="star-switch"
                         label="Rendre l'extrait star"
-
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -75,16 +105,17 @@ function UpdatePreviewForm({ genreList, id }) {
                             label={genre.label}
                             name={genre.label}
                             type="checkbox"
-                            id={genre.id}
+                            id={`genre-${genre.id}`}
+                            checked={formData.genres.includes(genre.id)}
+                            onChange={() => toggleGenre(genre.id)}
                         />
                     ))}
                 </Form.Group>
-                {/* <Form.Group className="mb-3">
-                    <Form.Label htmlFor='previewFile'>Parcourir les fichiers</Form.Label>
-                    <Form.Control id='previewFile' name='previewFile' type="file" />
-                </Form.Group> */}
-                {/* ajout star ou pas */}
-                <Button type="submit">Submit</Button> 
+                <div className="d-flex justify-content-end">
+                    <Button type="submit" disabled={saving}>
+                        {saving ? "Enregistrement..." : "Enregistrer"}
+                    </Button>
+                </div>
             </Form>
         </>
     

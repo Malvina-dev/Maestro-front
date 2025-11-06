@@ -82,7 +82,7 @@ export async function addPreview(formData) {
 
 export async function updatePreview(id, newPreviewData) {
     return api_axios
-        .patch(`/admin/preview/${id}`, {newPreviewData})
+        .patch(`/admin/preview/${id}`, newPreviewData)
         .then(function (res) {
             console.log('updatePreview res.data : ', res.data);
             return res.data;
