@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../UserContext.jsx";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { updatePreview } from "../../api/apiPreview.js";
+import { updatePreview, deletePreview } from "../../api/apiPreview.js";
 import { getPreviewById } from "../../api/apiPreview.js";
 
 
@@ -57,6 +57,23 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
         } finally {
             setSaving(false);
         }
+    }
+
+    async function handleDelete(e) {
+        e.preventDefault();
+        setSaving(true);
+        setError(null);
+        // alert "êtes vous sur de vouloir supprimer l'extrait ?"
+        try {
+            await deletePreview(id);
+            onSaved();
+        } catch (err) {
+            console.error("Erreur lors de la suppression de l'extrait : ", err);
+            setError("Échec de la suppression.");
+        } finally {
+            setSaving(false);
+        }
+
     }
 
     // synchronise formData si la prop preview change
@@ -115,6 +132,11 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
                 <div className="d-flex form__button__container">
                     <Button className="preview__form__button" type="submit" disabled={saving}>
                         {saving ? "Enregistrement..." : "Enregistrer"}
+                    </Button>
+                </div>
+                <div className="d-flex form__button__container">
+                    <Button onClick={(e) => { e.preventDefault(); handleDelete(e)}} disabled={saving} className="preview__form__button preview__form__button--delete">
+                    {saving ? "Suppression..." : "Supprimer l'extrait"}
                     </Button>
                 </div>
             </Form>

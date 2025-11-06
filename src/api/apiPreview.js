@@ -91,3 +91,15 @@ export async function updatePreview(id, newPreviewData) {
             console.log(error);
         });
 }
+
+export async function deletePreview(id) {
+    return api_axios
+        .delete(`/admin/preview/${id}`)
+        .then(function (res) {
+            console.log(res.data);
+            return res.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}

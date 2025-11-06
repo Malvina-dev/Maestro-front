@@ -78,3 +78,14 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     background-color: #CE4B27;
 }
+
+.preview__form__button--delete {
+    color: black;
+    background-color: white;
+    border: solid 1px var.$color-admin;
+    max-width: 15rem;
+}
+
+.preview__form__button--delete:hover {
+    border: solid 1px var.$color-admin;
+}
