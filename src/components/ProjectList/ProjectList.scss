@@ -1,11 +1,17 @@
-
-
+@use "../style/var.scss";
+@use "../style/mixin.scss";
 
 .deadline__badge {
     // espace entre statut et deadline
     margin-top: 12px; 
 }
 
-#test {
-    border: solid 1px red;
-}
+
+
+
+
+
+// $color-title-text: #000000;
+// $color-bg: #F4F1DE;
+// $color-client: #9DC4B5;
+// $color-admin: #E07A5F;
