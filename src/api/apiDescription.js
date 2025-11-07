@@ -25,6 +25,9 @@ export async function getAllDescription() {
 export async function create(formData) {
     return api_axios
         .post('/admin/description', formData, {
+                headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
         .then(function (res) {
             console.log("res.data : ", res.data);

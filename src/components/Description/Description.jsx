@@ -25,7 +25,7 @@ function Description() {
     return (
         <>
             <section className="description">
-                {descriptionList.length !== 0 &&
+                {descriptionList.length != 0 &&
                     descriptionList.map((description) => (
                         <div
                             key={description.id}
