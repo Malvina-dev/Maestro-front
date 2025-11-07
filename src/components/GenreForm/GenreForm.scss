@@ -17,6 +17,19 @@
     }
 }
 
+.genre__title {
+    font-family: var.$font-main;
+    font-size: var.$font-size-h2;
+    text-align: center;
+    background-color: var.$color-admin;
+    color: white;
+    padding: .5rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+
 .genre__accordion__item {
     display: flex;
     flex-direction: column;
@@ -35,8 +48,15 @@
     text-align: center;
 }
 
+
 .accordion-button {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.accordion-header {
+    width: 100%;
 }
 
 .genre__form {
@@ -64,4 +84,24 @@
 .genre__form__button:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     background-color: #CE4B27;
+}
+
+.accordion-collapse {
+    width: 100%;
+}
+
+
+.genre__list__item--trash {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    // border: solid 1px var.$color-admin;
+    // justify-content: space-evenly;
+    align-items: center;
+    margin: .7rem 0 .7rem 0;
+}
+
+.genre__label {
+    vertical-align: middle;
+    margin: 0;
 }

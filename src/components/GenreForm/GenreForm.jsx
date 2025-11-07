@@ -2,6 +2,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
+import {Trash} from "react-bootstrap-icons";
 import './GenreForm.scss'
 import { addAGenre, getAllGenres } from '../../api/apiGenre.js';
 import { useEffect, useState } from 'react';
@@ -44,7 +45,7 @@ function GenreForm() {
     return (
         <>
             <div className='genre__container'>
-                <h1>Genre</h1>
+                <h2 className='genre__title'>Les Genres</h2>
                 <Accordion>
                     <Accordion.Item className='genre__accordion__item' eventKey="1">
                         <Accordion.Header className='genre__accordion__title'>Liste des genres</Accordion.Header>
@@ -52,8 +53,10 @@ function GenreForm() {
                                 <ListGroup>
                                     {genreList.length > 0 ?
                                         genreList.map((genre) => (
-                                            <ListGroup.Item className='genre__list__item' key={genre.id}>
-                                                {genre.label}
+                                            <ListGroup.Item key={genre.id}>
+                                                <div className='genre__list__item genre__list__item--trash' >
+                                                    <p className='genre__label'>{genre.label}</p> <Trash/>
+                                                </div>
                                             </ListGroup.Item>
                                         ))
                                         :
