@@ -11,12 +11,15 @@ function FullClientCard({ client }) {
                 {client != [] &&
                     client.map((client) => (
                         <Row className="client-card-row">
-                            <Col className="client-card-columne">
+                            <Col sm className="card-column client-card-column">
                                 <ClientCard client={client} />
                             </Col>
 
                             {client.company_id != null && (
-                                <Col className="company-card-columne">
+                                <Col
+                                    sm
+                                    className="card-column company-card-column"
+                                >
                                     <CompanyCard company={client.company} />
                                 </Col>
                             )}

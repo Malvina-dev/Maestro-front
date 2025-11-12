@@ -47,14 +47,14 @@ function Admin() {
                 </Row>
 
                 <Row>
-                    <Col className="list-item contact-request-list-item">
+                    <Col sm className="list-item contact-request-list-item">
                         <h2 className="admin-item-title">
                             Les demandes de contact
                         </h2>
                         <ContactRequestList />
                     </Col>
 
-                    <Col className="list-item waiting-project-list-item">
+                    <Col sm className="list-item waiting-project-list-item">
                         <h2 className="admin-item-title">
                             Les demandes de projets
                         </h2>
