@@ -131,6 +131,7 @@ function ProjectList() {
 return (
     <section className="title__container">
         <h3 className="title">Projets en cours</h3>
+        {/* TRIER LES PROJETS PAR STATUS */}
         <Form.Select size="lg" onChange={handleChange} aria-label="Sort by genre">
                     
             <option value=''>Trier par statut</option>
@@ -142,13 +143,14 @@ return (
             :
             <option>Pas de statut</option>
             }
+        
+        {/* LISTE DES PROJETS */}
         </Form.Select>
         <div className="projects__container">
         {/* si projectList existe (!=null) et n’est pas vide (length != 0), alors j’affiche la liste des projets avec map, sinon on affiche pas de projet */}
         {(projectList != null && projectList.length != 0) ? projectList.map((project) => (
             <Form key={project.id}>
             <Card 
-                id="test"
                 className="border border-primary rounded-3 shadow-sm"
                 style={{
                     backgroundColor: "#f8f5e4",
@@ -156,6 +158,8 @@ return (
                     borderWidth: "2px",
                 }}
             >
+            
+                {/* SUPPRESSION PROJET*/}
                 <Card.Body>
                     <Row className="align-items-center">
                         <Col xs="auto">
@@ -178,7 +182,7 @@ return (
                         </Col>
 
                         <Col className="text-center">
-                        {/* TITRE "Projets en cours"*/}
+                        {/* TITRE PROJET "en cours" */}
                             <Badge
                                 pill
                                 style={{
@@ -191,7 +195,7 @@ return (
                                 {project.name}
                             </Badge>
                             
-                            {/* DESCRIPTION(resume) du projet*/}
+                            {/* DESCRIPTION/RESUME PROJET */}
                             <p className={`project__resume ${userIs === "admin" ? "bg-color-admin" : "bg-color-client"}`}
                             >
                                 {project.resume}
