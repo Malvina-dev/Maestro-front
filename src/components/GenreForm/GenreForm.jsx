@@ -2,11 +2,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
-import {Trash} from "react-bootstrap-icons";
+import {Trash, PencilSquare} from "react-bootstrap-icons";
 import './GenreForm.scss'
 import { addAGenre, getAllGenres, deleteGenre } from '../../api/apiGenre.js';
 import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import UpdateGenreForm from '../UpdateGenreForm/UpdateGenreForm.jsx';
 
 function GenreForm() {
 
@@ -14,6 +15,8 @@ function GenreForm() {
     const [genreToAdd, setGenreToAdd] = useState('');
     const [saving, setSaving] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null);
+    const [idToUpdate, setIdToUpdate] = useState(null);
+    const [updateGenre, setUpdateGenre] = useState('');
 
         // Modal
         const [show, setShow] = useState(false);
@@ -45,6 +48,23 @@ function GenreForm() {
         }
         
     }
+
+    function showUpdate(genre) {
+        setUpdateGenre(<UpdateGenreForm onSaved={handleOnSaved} genre={genre}/>);
+    }
+
+    // async function handleUpdate(id) {
+    //     console.log('updategenre clicked', id);
+    //     setSaving(true)
+
+    //     try {
+    //         console.log(id);
+    //         await updateGenre(id)
+            
+    //     } catch (error) {
+            
+    //     }
+    // }
 
 
     async function handleDelete(id) {
@@ -84,9 +104,14 @@ function GenreForm() {
                                                 <ListGroup.Item >
                                                     <Form.Group className='genre__list__item genre__list__item--trash' >
                                                         <Form.Label htmlFor='genre' id={genre.label} className='genre__label' >{genre.label}</Form.Label>
-                                                        <Button id={genre.id} name='genre' onClick={(e) => {e.preventDefault(); setIdToDelete(genre.id); handleShow()}} className='trash__icon'>
-                                                                <Trash />
-                                                        </Button>
+                                                        <div className='buttons__container'>
+                                                            <Button id={genre.id} name='genre' onClick={(e) => {e.preventDefault(); setIdToDelete(genre.id); handleShow()}} className='trash__icon'>
+                                                                    <Trash />
+                                                            </Button>
+                                                            <Button id={genre.label} name='genre' className='pencil__icon' onClick={(e) => {e.preventDefault(); setIdToUpdate(genre.id); showUpdate(genre)}}>
+                                                                    <PencilSquare />
+                                                            </Button>
+                                                        </div>
                                                     </Form.Group>
                                                 </ListGroup.Item>
                                             </Form>
@@ -100,6 +125,7 @@ function GenreForm() {
                                     }
                                     
                                 </ListGroup>
+                                    {updateGenre}
                             </Accordion.Body>
                         </Accordion.Item>
                         <Modal show={show} onHide={handleClose}>
