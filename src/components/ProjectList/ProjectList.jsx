@@ -78,9 +78,9 @@ function ProjectList() {
     function handleChange(e) {
         e.preventDefault(); // empêche le rechargement par défaut
         const status = e.target.value;
-        console.log('status : ',status);
+        console.log("status : ", status);
         setProjectFilter(status); // Met à jour le status sélectionné
-        console.log('projectFilter : ', projectFilter);
+        console.log("projectFilter : ", projectFilter);
 
         if (status === "") {
             getProjects();
