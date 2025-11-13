@@ -3,11 +3,13 @@ import { updateGenre } from "../../api/apiGenre.js";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function UpdateGenreForm({genre, onSaved = () => {} }) {
+function UpdateGenreForm({genre, onSaved = () => {}, unshow = () => {} }) {
 
     const [formLabel, setFormLabel] = useState(genre.label);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
+
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -21,6 +23,7 @@ function UpdateGenreForm({genre, onSaved = () => {} }) {
             setError("Échec de la mise à jour.");
         } finally {
             setSaving(false);
+            unshow();
         }
     }
 
@@ -31,7 +34,7 @@ function UpdateGenreForm({genre, onSaved = () => {} }) {
 
     return (
         <>
-        <h1>update genre form</h1>
+        {error && <p className="text-danger">{error}</p>}
         <Form onSubmit={handleSubmit} id='updateGenre' method='patch'>
             <h2 className="form__title">Modifier le genre</h2>
             <Form.Group className="mb-3 form__group">

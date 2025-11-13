@@ -17,6 +17,8 @@ function GenreForm() {
     const [idToDelete, setIdToDelete] = useState(null);
     const [idToUpdate, setIdToUpdate] = useState(null);
     const [updateGenre, setUpdateGenre] = useState('');
+    // const [activeItem, setActiveItem] = useState(null);
+    // const [selectedGenre, setSelectedGenre] = useState(null);
 
         // Modal
         const [show, setShow] = useState(false);
@@ -31,6 +33,11 @@ function GenreForm() {
 
     function handleOnSaved() {
         getListGenres();
+    }
+
+    function unshowUpdate() {
+        setIdToUpdate(null);
+        setUpdateGenre('');
     }
 
     async function handleAddGenre() {
@@ -50,22 +57,24 @@ function GenreForm() {
     }
 
     function showUpdate(genre) {
-        setUpdateGenre(<UpdateGenreForm onSaved={handleOnSaved} genre={genre}/>);
+        // const forms = document.querySelectorAll('form'); // for of, .id
+        // console.log(forms);
+        // const formToUpdate = document.getElementById(genre.id);
+        // console.log(formToUpdate);
+        // for (const form of forms) {
+        //     if (form.id === genre.id)
+        // }
+        setUpdateGenre(<UpdateGenreForm unshow={unshowUpdate} onSaved={handleOnSaved} genre={genre}/>);
     }
 
-    // async function handleUpdate(id) {
-    //     console.log('updategenre clicked', id);
-    //     setSaving(true)
 
-    //     try {
-    //         console.log(id);
-    //         await updateGenre(id)
-            
-    //     } catch (error) {
-            
-    //     }
+
+    // function toggleItem(genre) {
+    //     // const key = String(genre.id);
+    //     // bascule l'item actif et met à jour selectedGenre : si on reclique sur le même, on ferme et on supprime selectedGenre
+    //     // setActiveItem(gen => (gen === key ? null : key));
+    //     setSelectedGenre(gen => (gen && gen.id === genre.id ? null : genre));
     // }
-
 
     async function handleDelete(id) {
         handleOnSaved();
@@ -100,7 +109,7 @@ function GenreForm() {
                                     {genreList.length > 0 ?
                                         genreList.map((genre) => (
                                             <>
-                                            <Form className='genre__form__item' key={genre.id}>
+                                            <Form className='genre__form__item' id={genre.id} key={genre.id}>
                                                 <ListGroup.Item >
                                                     <Form.Group className='genre__list__item genre__list__item--trash' >
                                                         <Form.Label htmlFor='genre' id={genre.label} className='genre__label' >{genre.label}</Form.Label>
@@ -108,13 +117,15 @@ function GenreForm() {
                                                             <Button id={genre.id} name='genre' onClick={(e) => {e.preventDefault(); setIdToDelete(genre.id); handleShow()}} className='trash__icon'>
                                                                     <Trash />
                                                             </Button>
-                                                            <Button id={genre.label} name='genre' className='pencil__icon' onClick={(e) => {e.preventDefault(); setIdToUpdate(genre.id); showUpdate(genre)}}>
+                                                            <Button id={genre.label} name='genre' className='pencil__icon' onClick={(e) => {e.preventDefault(); e.stopPropagation(); setIdToUpdate(genre.id); showUpdate(genre)}}>
                                                                     <PencilSquare />
                                                             </Button>
                                                         </div>
                                                     </Form.Group>
                                                 </ListGroup.Item>
                                             </Form>
+                                            {idToUpdate === genre.id
+                                            && updateGenre}
 
                                             </>
                                         ))
@@ -125,7 +136,6 @@ function GenreForm() {
                                     }
                                     
                                 </ListGroup>
-                                    {updateGenre}
                             </Accordion.Body>
                         </Accordion.Item>
                         <Modal show={show} onHide={handleClose}>
