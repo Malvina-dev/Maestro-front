@@ -53,7 +53,7 @@ function GenreForm() {
     }
 
     function showUpdate(genre) {
-        setUpdateGenre(<UpdateGenreForm key={genre.label} unshow={unshowUpdate} onSaved={handleOnSaved} genre={genre}/>);
+        setUpdateGenre(<UpdateGenreForm unshow={unshowUpdate} onSaved={handleOnSaved} genre={genre}/>);
     }
 
     async function handleDelete(id) {
@@ -88,8 +88,8 @@ function GenreForm() {
                                     
                                     {genreList.length > 0 ?
                                         genreList.map((genre) => (
-                                            <>
-                                            <Form className='genre__form__item' id={genre.id} key={genre.id}>
+                                            <div  key={genre.id}>
+                                            <Form className='genre__form__item' id={genre.id}>
                                                 <ListGroup.Item >
                                                     <Form.Group className='genre__list__item genre__list__item--trash' >
                                                         <Form.Label htmlFor='genre' id={genre.label} className='genre__label' >{genre.label}</Form.Label>
@@ -107,7 +107,7 @@ function GenreForm() {
                                             {idToUpdate === genre.id
                                             && updateGenre}
 
-                                            </>
+                                            </div>
                                         ))
                                         :
                                         <ListGroup.Item className='genre__list__item'>
