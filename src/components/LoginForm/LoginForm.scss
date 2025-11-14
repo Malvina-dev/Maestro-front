@@ -3,7 +3,6 @@
 
 .login-form {
     border: solid 1px var.$color-client;
-    width: 30%;
     font-family: var.$font-alt;
     border-radius: 10px;
     box-shadow: 3px 3px 15px 1px rgba(133, 132, 132, 0.31);
@@ -20,5 +19,18 @@
     background-color: var.$color-client;
 }
 
+.inscription-item {
+    margin-left: 2.5rem;
+}
 
-
+@media (min-width: var.$breakpoint-desktop) {
+    .login-item {
+        justify-items: center;
+    }
+    .login-form {
+        width: 30%;
+    }
+    .inscription-item {
+        margin-left: 2.5rem;
+    }
+}

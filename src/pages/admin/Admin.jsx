@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Admin.scss";
 import FullClientCard from "../../components/ClientList/FullClientCard.jsx";
+import WaitingProjectList from "../../components/WaitingProjectList/WaitingProjectList.jsx";
 
 function Admin() {
     // LES COMPOSANTS QUI SERONT SUR LA PAGE:
@@ -42,7 +43,7 @@ function Admin() {
                         <h2 className="admin-item-title">
                             Les demandes de projets
                         </h2>
-                        {/* <ProjectList /> */}
+                        <WaitingProjectList />
                     </Col>
                 </Row>
 
