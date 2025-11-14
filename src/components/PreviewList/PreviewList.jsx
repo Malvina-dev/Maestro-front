@@ -27,9 +27,17 @@ function PreviewList({location}) {
     // pour cela que tu dois faire userIs.userIs ou {userIs}
     const {userIs} = useContext(UserContext)
 
-    console.log('role après context', userIs);
-    console.log(genreList);
+    // console.log('role après context', userIs);
+    // console.log(genreList);
     
+    function handleOnSave() {
+        getPreviewList();
+    }
+
+    function handleClose() {
+        setPreviewForm('');
+        setIsPlus(true);
+    }
 
     async function getPreviewList() {
         if (location === '/compositions') {
@@ -70,7 +78,7 @@ function PreviewList({location}) {
     function handleAdd(e) {
         e.preventDefault();
         if (previewForm === '') {
-            setPreviewForm(<PreviewForm genreList={genreList}/>)
+            setPreviewForm(<PreviewForm close={handleClose} onSave={handleOnSave} genreList={genreList}/>)
         } else {
             setPreviewForm('');
         }
