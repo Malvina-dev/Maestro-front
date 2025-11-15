@@ -17,6 +17,8 @@ function GenreForm() {
     const [idToDelete, setIdToDelete] = useState(null);
     const [idToUpdate, setIdToUpdate] = useState(null);
     const [updateGenre, setUpdateGenre] = useState('');
+    const [genreToDelete, setGenreToDelete] = useState('');
+    const [genreToUpdate, setGenreToUpdate] = useState('');
     // const [activeItem, setActiveItem] = useState(null);
 
         // Modal
@@ -69,6 +71,7 @@ function GenreForm() {
             console.error("Erreur lors de la suppression du genre : ", error);
         } finally {
             setSaving(false);
+            setGenreToDelete('');
         }
     }
 
@@ -94,10 +97,10 @@ function GenreForm() {
                                                     <Form.Group className='genre__list__item genre__list__item--trash' >
                                                         <Form.Label htmlFor='genre' id={genre.label} className='genre__label' >{genre.label}</Form.Label>
                                                         <div className='buttons__container'>
-                                                            <Button id={genre.id} name='genre' onClick={(e) => {e.preventDefault(); setIdToDelete(genre.id); handleShow()}} className='trash__icon'>
+                                                            <Button id={genre.id} name='genre' onClick={(e) => {e.preventDefault(); setGenreToDelete(genre.label); setIdToDelete(genre.id); handleShow()}} className='trash__icon'>
                                                                     <Trash />
                                                             </Button>
-                                                            <Button id={genre.label} name='genre' className='pencil__icon' onClick={(e) => {e.preventDefault(); e.stopPropagation(); setIdToUpdate(genre.id); showUpdate(genre)}}>
+                                                            <Button id={genre.label} name='genre' className='pencil__icon' onClick={(e) => {e.preventDefault(); e.stopPropagation(); setGenreToUpdate(genre.label); setIdToUpdate(genre.id); showUpdate(genre)}}>
                                                                     <PencilSquare />
                                                             </Button>
                                                         </div>
@@ -122,9 +125,9 @@ function GenreForm() {
                             <Modal.Header closeButton>
                             <Modal.Title>Supprimer le genre</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>Etes-vous sûr de vouloir supprimer le genre ?</Modal.Body>
+                            <Modal.Body>Etes-vous sûr de vouloir supprimer le genre "{genreToDelete}" ?</Modal.Body>
                             <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
+                            <Button variant="secondary" onClick={() => {handleClose(); setGenreToDelete('')}}>
                                 Annuler
                             </Button>
                             <Button variant="primary" onClick={(e) => {e.preventDefault(); handleDelete(idToDelete); handleClose()}}>
