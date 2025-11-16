@@ -1,17 +1,26 @@
 @use "../var.scss";
 @use "../mixin.scss";
 
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // toute la hauteur de l’écran
+    flex-direction: column;
+}
+
 .login-form {
     border: solid 1px var.$color-client;
     width: 30%;
     font-family: var.$font-alt;
     border-radius: 10px;
     box-shadow: 3px 3px 15px 1px rgba(133, 132, 132, 0.31);
-    margin: 1rem;
+    background-color: white;
+    padding: 2rem;
+}
 
-    .login-form-item {
-        padding: 1rem;
-    }
+.login-form-item {
+    padding: 1rem;
 }
 
 .login-form-button {
@@ -19,6 +28,3 @@
     border: solid 1px var.$color-client;
     background-color: var.$color-client;
 }
-
-
-
