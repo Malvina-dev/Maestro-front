@@ -1,23 +1,26 @@
 import "./ProjectForm.scss";
 import { createProject } from "../../api/apiProject.js";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import UserContext from "../../UserContext.jsx";
 
 function ProjectForm() {
     // useState permet de stocker et mettre à jour les valeurs du formulaire.
     const [name, setName] = useState("");
     const [resume, setResume] = useState("");
 
-    // ****A METTRE DANS UNE FUNCTION ASYNC AWAIT******
+    const {needRefreshProjectList} = useContext(UserContext)
+
     // Fonction appelée quand l'utilisateur valide le formulaire
-    const handleCreateProject = (e) => {
+    async function handleCreateProject (e) {
         e.preventDefault(); // empêche la page de se recharger
 
         // crée un objet avec les données saisies par l'utilisateur 
         const projectData = { name: name, resume: resume };
         // envoie les données
-        createProject(projectData);
+        await createProject(projectData);
+        needRefreshProjectList()
     };
 
     return (
