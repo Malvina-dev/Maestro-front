@@ -18,7 +18,7 @@ console.log(userIs);
     return (
         <>
         <ProjectForm />
-        {/* <ProjectList /> */}
+        <ProjectList />
         </>
     )
 }

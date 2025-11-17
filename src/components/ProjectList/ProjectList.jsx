@@ -19,7 +19,7 @@ function ProjectList() {
     const [statusList, setStatusList] = useState ([]); // Liste des statuts disponibles
     const [newStatus, setNewStatus] = useState (''); 
 
-
+    
     // Modal
     const [show, setShow] = useState(false);
 
@@ -29,7 +29,7 @@ function ProjectList() {
 
 
     // je récupère le rôle user dans le UserContext
-    const {userIs} = useContext(UserContext);
+    const {userIs,refreshList, desactiveRefreshProjectList} = useContext(UserContext);
     console.log('role après context', userIs);
 
     const navigate = useNavigate();
@@ -39,7 +39,6 @@ function ProjectList() {
     async function getProjects() {
         if (userIs === 'visitor') {
             navigate("/");   
-        // ** METTRE UN TOAST AFIN D'INDIQUER CONNECTER VOUS (page utilisateur)
         }
         if (userIs === 'client'){ 
             // l'api me renvoie la liste des projets (si USER)
@@ -127,7 +126,8 @@ function ProjectList() {
         // quand le composant s'affiche, je lance ma fonction getProjects()
         // pour aller chercher les projets dans l'API
         getProjects();
-    }, []);
+        desactiveRefreshProjectList();
+    }, [refreshList]);
 
 
 return (
@@ -243,7 +243,7 @@ return (
                 </Form>
             </Col>
         ))
-    : <p>pas de projet</p>}
+    : <p>Pas de projet</p>}
         </Row>
         </Container>
     </section>
