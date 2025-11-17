@@ -31,14 +31,14 @@ function Admin() {
                 </Row> */}
 
                 <Row>
-                    <Col sm className="list-item contact-request-list-item">
+                    <Col sm className="component-admin-container list-item contact-request-list-item">
                         <h2 className="admin-item-title">
                             Les demandes de contact
                         </h2>
                         <ContactRequestList />
                     </Col>
 
-                    <Col sm className="list-item waiting-project-list-item">
+                    <Col sm className="component-admin-container list-item waiting-project-list-item">
                         <h2 className="admin-item-title">
                             Les projets
                         </h2>
@@ -47,11 +47,11 @@ function Admin() {
                 </Row>
 
                 <Row className="row-3">
-                    <Col sm={5} className="list-item genre-list-item">
+                    <Col sm={5} className="component-admin-container list-item genre-list-item">
                         <h2 className="admin-item-title">Les genres</h2>
                         <GenreForm />
                     </Col>
-                    <Col className="list-item full-card-list-item">
+                    <Col className="component-admin-container list-item full-card-list-item">
                         <h2 className="admin-item-title">
                             La liste des clients
                         </h2>
