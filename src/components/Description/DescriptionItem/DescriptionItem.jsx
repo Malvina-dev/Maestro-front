@@ -34,9 +34,6 @@ function DescriptionItem({ description, onAction }) {
                         className="description__image"
                         src={imageSrc}
                         alt="présentation du composateur"
-                        onError={(e) => {
-                            e.target.src = "/imagesUploads/default-image.jpg";
-                        }}
                     />
 
                     <p className="description__text">{description.text}</p>
