@@ -1,6 +1,6 @@
 import { create } from "../../api/apiUser.js";
 import { useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./RegisterForm.scss";
@@ -39,13 +39,9 @@ function RegisterForm({ setUserHasAccount }) {
   return (
     <>
       <h2>Créer un compte</h2>
-      <p>Les champs marqués d'un (*) sont obligatoires </p>
+      <p>Les champs marqués d'un (*) sont obligatoires</p>
       <div className="register-form-container">
-        <Form
-          className="register-form"
-          method="post"
-          onSubmit={(event) => handleSubmit(event)}
-        >
+        <Form className="register-form" method="post" onSubmit={handleSubmit}>
           {/* EMAIL */}
           <Form.Group className="register-form-item" controlId="email">
             <Form.Label>Email</Form.Label>
@@ -61,7 +57,7 @@ function RegisterForm({ setUserHasAccount }) {
           {/* MOT DE PASSE */}
           <Form.Group className="register-form-item" controlId="password">
             <Form.Label>Mot de passe</Form.Label>
-            <InputGroup>
+            <div className="password-wrapper">
               <Form.Control
                 type={showPassword ? "text" : "password"}
                 placeholder="Entrez votre mot de passe"
@@ -69,19 +65,22 @@ function RegisterForm({ setUserHasAccount }) {
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
-              <Button
-                variant="outline-secondary"
+              <span
+                className="show-password-btn"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <EyeSlash /> : <Eye />}
-              </Button>
-            </InputGroup>
+              </span>
+            </div>
           </Form.Group>
 
           {/* CONFIRMATION MOT DE PASSE */}
-          <Form.Group className="register-form-item" controlId="confirmPassword">
+          <Form.Group
+            className="register-form-item"
+            controlId="confirmPassword"
+          >
             <Form.Label>Confirmer le mot de passe</Form.Label>
-            <InputGroup>
+            <div className="password-wrapper">
               <Form.Control
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirmez votre mot de passe"
@@ -89,13 +88,15 @@ function RegisterForm({ setUserHasAccount }) {
                 onChange={(event) => setConfirmPassword(event.target.value)}
                 required
               />
-              <Button
-                variant="outline-secondary"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              <span
+                className="show-password-btn"
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
               >
                 {showConfirmPassword ? <EyeSlash /> : <Eye />}
-              </Button>
-            </InputGroup>
+              </span>
+            </div>
           </Form.Group>
 
           <Button className="register-form-button" type="submit">
@@ -105,7 +106,11 @@ function RegisterForm({ setUserHasAccount }) {
 
         <p>
           Déjà un compte ?{" "}
-          <Link className="register-link" to="/login" onClick={handleLogin}>
+          <Link
+            className="register-link"
+            to="/login"
+            onClick={handleLogin}
+          >
             Connectez-vous
           </Link>
         </p>
