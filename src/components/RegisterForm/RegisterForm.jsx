@@ -18,7 +18,7 @@ function RegisterForm({ setUserHasAccount }) {
         event.preventDefault();
 
         if (password !== confirmPassword) {
-            alert("Les mots de passe ne correspondent pas");
+            notify("Les mots de passe ne correspondent pas");
             return;
         }
 
@@ -29,7 +29,6 @@ function RegisterForm({ setUserHasAccount }) {
             navigate("/login");
         } catch (error) {
             console.error("Erreur lors de l'inscription", error);
-            // alert("Erreur lors de la création du compte. Veuillez réessayer.");
             notify("Erreur lors de la création du compte. Veuillez réessayer.");
         }
     }
