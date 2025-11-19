@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { updatePreview, deletePreview } from "../../api/apiPreview.js";
 import Modal from 'react-bootstrap/Modal';
+import { notify } from "../Toast/Toast.jsx";
 
 
 function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) {
@@ -56,9 +57,11 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
         try {
             await updatePreview(id, payload); 
             onSaved();
+            notify("Extrait modifié avec succès !");
         } catch (err) {
             console.error("Erreur mise à jour preview:", err);
             setError("Échec de la mise à jour.");
+            notify("Erreur lors de la modification de l'extrait");
         } finally {
             setSaving(false);
         }
@@ -72,9 +75,11 @@ function UpdatePreviewForm({ id, genreList = [], preview, onSaved = () => {} }) 
         try {
             await deletePreview(id);
             onSaved();
+            notify("Extrait supprimé avec succès !");
         } catch (err) {
             console.error("Erreur lors de la suppression de l'extrait : ", err);
             setError("Échec de la suppression.");
+            notify("Erreur lors de la suppression de l'extrait");
         } finally {
             setSaving(false);
         }
