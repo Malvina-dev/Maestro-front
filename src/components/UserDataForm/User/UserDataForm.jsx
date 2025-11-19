@@ -24,6 +24,8 @@ function UserDataForm() {
         getMySetting();
     }, []);
 
+    const isAdmin = setting?.role === "admin";
+
     function handelSubmit(event) {
         event.preventDefault();
         updateMyProfile(setting);
@@ -203,32 +205,34 @@ function UserDataForm() {
                                 </Row>
 
                                 {/* DESACTIVER SON COMPTE */}
-                                <Row className="item profile-item">
-                                    <Form.Group className="profile-form-item profile-form-item-toggle">
-                                        <Form.Check
-                                            className="form__input"
-                                            name="disable"
-                                            type="switch"
-                                            id="disable-user"
-                                            label="Compte activé"
-                                            aria-describedby="disable-user-help"
-                                            defaultChecked={
-                                                setting?.isActive
-                                                    ? setting.isActive
-                                                    : false
-                                            }
-                                            onChange={handleSwitch}
-                                        />
-                                        <p
-                                            id="disable-user-help"
-                                            className="disable-help-text"
-                                        >
-                                            Attention ! En désactivant votre
-                                            compte, vous ne pourrez plus vous
-                                            connecter
-                                        </p>
-                                    </Form.Group>
-                                </Row>
+                                {!isAdmin && (
+                                    <Row className="item profile-item">
+                                        <Form.Group className="profile-form-item profile-form-item-toggle">
+                                            <Form.Check
+                                                className="form__input"
+                                                name="disable"
+                                                type="switch"
+                                                id="disable-user"
+                                                label="Compte activé"
+                                                aria-describedby="disable-user-help"
+                                                defaultChecked={
+                                                    setting?.isActive
+                                                        ? setting.isActive
+                                                        : false
+                                                }
+                                                onChange={handleSwitch}
+                                            />
+                                            <p
+                                                id="disable-user-help"
+                                                className="disable-help-text"
+                                            >
+                                                Attention ! En désactivant votre
+                                                compte, vous ne pourrez plus
+                                                vous connecter
+                                            </p>
+                                        </Form.Group>
+                                    </Row>
+                                )}
 
                                 {/* BOUTTON */}
                                 <Row className="item-button">
