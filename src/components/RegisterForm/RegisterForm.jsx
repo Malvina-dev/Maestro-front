@@ -2,7 +2,7 @@ import { create } from "../../api/apiUser.js";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import "./RegisterForm.scss";
 import { notify } from "../Toast/Toast.jsx";
 
@@ -12,7 +12,6 @@ function RegisterForm({ setUserHasAccount }) {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const navigate = useNavigate();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -26,7 +25,7 @@ function RegisterForm({ setUserHasAccount }) {
             const response = await create({ email, password });
             console.log("Inscription réussie", response);
             notify("Compte créé avec succès !");
-            navigate("/login");
+            setUserHasAccount(true);
         } catch (error) {
             console.error("Erreur lors de l'inscription", error);
             // alert("Erreur lors de la création du compte. Veuillez réessayer.");
