@@ -5,6 +5,8 @@ import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./RegisterForm.scss";
 import { notify } from "../Toast/Toast.jsx";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 function RegisterForm({ setUserHasAccount }) {
     const [email, setEmail] = useState("");
@@ -14,8 +16,29 @@ function RegisterForm({ setUserHasAccount }) {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
 
+    const regex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&(),.?":{}|<>]).{8,}$/;
+
+    const passwordPattern = `Au moins 8 caractères dont : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial parmi : !@#$%^&(),.?"{}:|`;
+    const infoCopyPassword = `Attention ! les deux mots de passes doivent être identiques`;
+
+    function renderTooltip(tooltipMessage) {
+        return (
+            <Tooltip id="password-tooltip" {...tooltipMessage}>
+                {tooltipMessage}
+            </Tooltip>
+        );
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
+
+        if (!regex.test(password)) {
+            notify([
+                "Mot de passe invalide : au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial",
+            ]);
+            return;
+        }
 
         if (password !== confirmPassword) {
             notify("Les mots de passe ne correspondent pas");
@@ -70,15 +93,21 @@ function RegisterForm({ setUserHasAccount }) {
                     >
                         <Form.Label>Mot de passe</Form.Label>
                         <div className="password-wrapper">
-                            <Form.Control
-                                type={showPassword ? "text" : "password"}
-                                placeholder="Entrez votre mot de passe"
-                                value={password}
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
-                                required
-                            />
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderTooltip(passwordPattern)}
+                            >
+                                <Form.Control
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Entrez votre mot de passe"
+                                    value={password}
+                                    onChange={(event) =>
+                                        setPassword(event.target.value)
+                                    }
+                                    required
+                                />
+                            </OverlayTrigger>
                             <span
                                 className="show-password-btn"
                                 onClick={() => setShowPassword(!showPassword)}
@@ -95,15 +124,25 @@ function RegisterForm({ setUserHasAccount }) {
                     >
                         <Form.Label>Confirmer le mot de passe</Form.Label>
                         <div className="password-wrapper">
-                            <Form.Control
-                                type={showConfirmPassword ? "text" : "password"}
-                                placeholder="Confirmez votre mot de passe"
-                                value={confirmPassword}
-                                onChange={(event) =>
-                                    setConfirmPassword(event.target.value)
-                                }
-                                required
-                            />
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderTooltip(infoCopyPassword)}
+                            >
+                                <Form.Control
+                                    type={
+                                        showConfirmPassword
+                                            ? "text"
+                                            : "password"
+                                    }
+                                    placeholder="Confirmez votre mot de passe"
+                                    value={confirmPassword}
+                                    onChange={(event) =>
+                                        setConfirmPassword(event.target.value)
+                                    }
+                                    required
+                                />
+                            </OverlayTrigger>
                             <span
                                 className="show-password-btn"
                                 onClick={() =>
