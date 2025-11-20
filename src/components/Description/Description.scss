@@ -8,8 +8,13 @@
 
     @include mixin.desktop {
         display: grid;
-        align-items: start;
+        align-items: center;
     }
+}
+
+.description__image__container {
+    display: flex;
+    align-items: center;
 }
 
 .description__title {
@@ -20,9 +25,9 @@
     justify-content: center;
     margin: 1rem;
     text-align: center;
-
+    
     @include mixin.desktop {
-        
+        align-self: flex-start;
         grid-column: 2;
         grid-row: 1;
         align-items: center;
@@ -41,13 +46,14 @@
     font-family: var.$font-alt;
     font-size: 0.7rem;
     text-align: center;
+    padding-left: 24px;
 
     @include mixin.desktop {
         grid-column: 2;
         grid-row: 1;
         align-items: flex-start;
         padding: 0;
-        margin-top: 4rem;
+        margin-top: 5rem;
         margin-left: 10px;
         font-size: var.$font-size-base;
     }
@@ -55,10 +61,9 @@
 
 .description__image {
     width: 100%;
-    max-width: 500px;
+    // max-width: 500px;
     height: auto;
-    padding: .7rem .5rem;
-    // padding-left: 1rem;
+    padding: .7rem 0 .7rem 24px;
     object-fit: cover;
 
     @include mixin.desktop {
@@ -68,8 +73,5 @@
         grid-row: 1;
         align-self: center;
         padding: 1.5rem 1rem;
-        // padding-top: 0;
-        // padding-bottom: 20px;
-        // padding-top: 20px;
     }
 }
