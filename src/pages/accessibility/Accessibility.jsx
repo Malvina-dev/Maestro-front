@@ -25,8 +25,7 @@ function Accessibility() {
                     <ul>
                         <li>
                             Utilisation d’une structure HTML sémantique
-                            (éléments main,header,{" "}
-                        nav,footer) pour
+                            (éléments main, header, nav, footer) pour
                             faciliter la navigation aux technologies
                             d’assistance.
                         </li>
@@ -36,8 +35,8 @@ function Accessibility() {
                         </li>
                         <li>
                             Labels explicites et attributs ARIA adaptés (
-                        aria-label,{" "}
-                        aria-labelledby,{" "}
+                        aria-label,
+                        aria-labelledby
                         aria-describedby) pour les éléments
                             interactifs.
                         </li>
@@ -50,8 +49,8 @@ function Accessibility() {
                             pouvant perturber certaines personnes.
                         </li>
                         <li>
-                            Composants de navigation utilisant des éléments{" "}
-                        &lt;nav&gt; et&lt;a&gt;{" "}
+                            Composants de navigation utilisant des éléments
+                        (nav et a)
                             avec des rôles ARIA lorsque c’est nécessaire.
                         </li>
                         <li>
@@ -61,7 +60,7 @@ function Accessibility() {
                         </li>
                         <li>
                             Annoncer les changements dynamiques avec des régions
-                            ARIA live via des composants comme{" "}
+                            ARIA live via des composants comme
                         react-aria-live.
                         </li>
                     </ul>
