@@ -87,7 +87,7 @@ function LoginForm({ setUserHasAccount }) {
                     </Button>
                 </Form>
 
-                <p>
+                <p className="p">
                     Pas encore de compte ?{" "}
                     <Link
                         className="login-link"

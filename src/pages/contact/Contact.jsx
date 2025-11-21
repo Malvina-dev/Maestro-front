@@ -31,7 +31,7 @@ function Contact() {
         <div className="contact-page">
             <div className="header-contact">
                 <h2 className="h2">Contactez-nous</h2>
-                <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
+                <p className="p">Les champs marqués d'un astérisque (*) sont obligatoires</p>
             </div>
 
             <Container className="contact-container">

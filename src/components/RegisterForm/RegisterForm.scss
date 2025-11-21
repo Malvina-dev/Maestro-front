@@ -9,7 +9,7 @@
   font-size: var.$font-size-h2; // plus petit pour mobile d'abord
 }
 
-p {
+.p {
   text-align: center;
   padding-top: 1rem;
 }
@@ -35,7 +35,7 @@ p {
     border: none;
   }
 
-  p {
+  .p {
     text-align: center;
     padding-top: 1rem;
 
@@ -101,7 +101,7 @@ p {
       margin-bottom: 1.5rem;
     }
 
-    p {
+    .p {
       padding-top: 1.5rem;
     }
   }

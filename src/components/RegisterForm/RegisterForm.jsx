@@ -63,7 +63,7 @@ function RegisterForm({ setUserHasAccount }) {
     return (
         <>
             <h2 className="h2">Créer un compte</h2>
-            <p>Les champs marqués d'un (*) sont obligatoires</p>
+            <p className="p">Les champs marqués d'un (*) sont obligatoires</p>
             <div className="register-form-container">
                 <Form
                     className="register-form"
@@ -158,7 +158,7 @@ function RegisterForm({ setUserHasAccount }) {
                     </Button>
                 </Form>
 
-                <p>
+                <p className="p">
                     Déjà un compte ?{" "}
                     <Link
                         className="register-link"
