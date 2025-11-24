@@ -1,3 +1,4 @@
+
 import "./CGU.scss";
 
 function CGU() {
@@ -168,3 +169,23 @@ function CGU() {
 }
 
 export default CGU;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

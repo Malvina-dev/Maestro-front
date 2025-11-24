@@ -8,7 +8,7 @@ import { logoutUser } from "../../api/apiUser.js";
 import { useAxiosInterceptor } from "../../api/axiosConfig.js";
 import { getMyProfile } from "../../api/apiUser.js";
 import { notify } from "../Toast/Toast.jsx";
-import "./Header.scss";
+import logo from "../../assets/images/logo.png";
 
 /*useContext(UserContext) récupère les données partagées dans le contexte utilisateur.
 userIs : indique le rôle actuel (admin, client, visitor).
@@ -80,7 +80,7 @@ Si visiteur  pas d’icône.
         <header role="banner">
             <a href="/">
                 <img
-                    src="src/assets/images/logo.png"
+                    src={logo}
                     alt="logo maestro"
                     className="logo"
                 />
