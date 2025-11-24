@@ -24,319 +24,218 @@ function ProjectList() {
     const [projectList, setProjectList] = useState([]); // Liste des projets affichés
     const [projectFilter, setProjectFilter] = useState(""); // Filtre appliqué aux projets
     const [statusList, setStatusList] = useState([]); // Liste des statuts disponibles
-    const [newStatus, setNewStatus] = useState("");
+    const [newStatus, setNewStatus] = useState(""); // nouveau statut 
 
-    // Modal
+    // fenêtre Modal (être vous sûr de vouloir supprimer)
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false); // ferme la modal
+    const handleShow = () => setShow(true); // ouvre la modal
 
-    // je récupère le rôle user dans le UserContext
-    const { userIs, refreshList, desactiveRefreshProjectList } =
-        useContext(UserContext);
-    console.log("role après context", userIs);
 
+
+    // Récupère les infos du UserContext
+    const {userIs,refreshList, desactiveRefreshProjectList} = useContext(UserContext);
+    console.log('role après context', userIs);
+    // Permet de rediriger l'utilisateur
     const navigate = useNavigate();
 
-    // je récupère les projets dans l'API coté back (Lister tous les projects)
+
+    // charge les projets selon le rôle de l’utilisateur
     async function getProjects() {
-        if (userIs === "visitor") {
-            navigate("/");
+        // si VISITOR
+        if (userIs === 'visitor') {
+            navigate("/");   
         }
-        if (userIs === "client") {
-            // l'api me renvoie la liste des projets (si USER)
+        // si CLIENT
+        if (userIs === 'client'){ 
             const result = await getAllProjectList();
-            setStatusList(result.Liststatus);
-            // les projets se mettent dans le usestate pour les afficher
+            setStatusList (result.Liststatus);
             setProjectList(result.projects);
-        } else {
-            // sinon l'api me renvoie la liste des projets ADMIN
+        } else { 
+            // si ADMIN
             const result = await getAllAdminProjects();
-            setStatusList(result.Liststatus);
-            // les projets se mettent dans le usestate pour les afficher
+            setStatusList (result.Liststatus);
             setProjectList(result.projects);
         }
     }
 
-    // je récupère les status du projet dans l'API coté back (Trier les projets par filtre)
+
+    // charge les projets filtrés par statut
     async function getStatusProject(status) {
-        // l'api me renvoie les projets filtrés suivant le status choisis (si USER)
-        if (userIs === "client") {
-            const result = await getFilteredProjectList(status);
-            console.log("client:", result.projects);
-            // je mets la liste filtrés dans le usestate pour les afficher
+        // si CLIENT
+        if (userIs === 'client'){ 
+            const result  = await getFilteredProjectList(status);
+            console.log("client:",result.projects);
             setProjectList(result.projects);
         } else {
-            const result = await getFilteredAdminProjects(status);
+            // si ADMIN
+            const result  = await getFilteredAdminProjects(status);
             console.log("admin:", result);
-            // je mets la liste filtrés dans le usestate pour les afficher
             setProjectList(result.projects);
         }
     }
 
-    // la fonction est déclénchée quand la valeur du filter est changée
+
+    
+    // met à jour l’affichage selon le filtre choisi
     function handleChange(e) {
         e.preventDefault(); // empêche le rechargement par défaut
         const status = e.target.value;
         console.log("status : ", status);
-        setProjectFilter(status); // Met à jour le status sélectionné
-        // console.log("projectFilter : ", projectFilter);
+        setProjectFilter(status); 
 
         if (status === "") {
-            getProjects();
-            // si le user selectionne tous les projet donc la valeur vide ""
-            // on affiche toute la liste des projets
+            getProjects(); // affiche toute la liste des statut
         } else {
-            // console.log("else handlechange :");
-
-            getStatusProject(status);
-            // sinon on filtre suivant le status qu'aura choisi le user (en cours, terminé, etc)
+            getStatusProject(status); // affiche le statut choisi 
         }
     }
 
-    console.log("status list : ", statusList);
 
-    // met à jour le status du projet
+    // modifie le statut d’un projet
     function handleChangeStatus(e) {
         e.preventDefault();
-        console.log(e.target);
-
         setNewStatus(e.target.value);
-        console.log("id du target selected :", e.target.value);
-        console.log("xxxx:", e.target.selectedOptions[0].id);
-        const result = updateProjectStatus(
-            e.target.selectedOptions[0].id,
-            e.target.value
-        );
+        const result = updateProjectStatus(e.target.selectedOptions[0].id, e.target.value);
+        // e.target c’est le <select>
+        // e.target.value c’est le nouveau statut choisi (ex : "en cours")
+        // e.target.selectedOptions[0].id  c’est l’ID du projet
         console.log(newStatus);
     }
 
-    // supprimer un projet : admin
-    async function handleDelete(id) {
-        // on appelle l'API pour supprimer le projet dans la BDD
-        try {
-            await deleteProject(id);
-            getProjects();
-            notify("Projet supprimé avec succès", "success");
-        } catch (error) {
-            console.error("erreur lors de la suppression du projet", error);
-        }
-    }
+        // supprime un projet
+        async function handleDelete(id) {
+            try {
+                await deleteProject(id);
+                getProjects();
+            } catch (error) {
+                console.error("erreur lors de la suppression du projet", error);
+            }
+        };
 
-    // useeffect s'exécute quand le composant apparait sur la page
+
+    // recharge les projets
     useEffect(() => {
-        // quand le composant s'affiche, je lance ma fonction getProjects()
-        // pour aller chercher les projets dans l'API
         getProjects();
         desactiveRefreshProjectList();
     }, [refreshList]);
 
-    return (
-        <section className="title__container">
-            {/* TRIER LES PROJETS PAR STATUS */}
-            <Form.Select
-                size="lg"
-                onChange={handleChange}
-                aria-label="Sort by genre"
-                className="mb-4"
-            >
-                <option value="">Trier par statut</option>
-                {/* Si la liste de projets et de statuts n'est pas vide, on affiche la liste des status, sinon on affiche "Pas de statut"*/}
-                {projectList?.length > 0 && statusList.length != 0 ? (
-                    statusList.map((status) => (
-                        <option value={status} key={status}>
-                            {status}
-                        </option>
-                    ))
-                ) : (
-                    <option>Pas de statut</option>
-                )}
-            </Form.Select>
 
-            {/* LISTE DES PROJETS */}
-            <Container>
-                <Row className="projects__container">
-                    {/* si projectList existe (!=null) et n’est pas vide (length != 0), alors j’affiche la liste des projets avec map, sinon on affiche pas de projet */}
-                    {projectList != null && projectList.length != 0 ? (
-                        projectList.map((project) => (
-                            <Col key={project.id} className="mb-5" md={12}>
-                                <Form>
-                                    <Card
-                                        className="border border-primary rounded-3 shadow-sm"
-                                        style={{
-                                            width: "100%",
-                                            border: "2px",
-                                        }}
-                                    >
-                                        {/* SUPPRESSION PROJET*/}
-                                        <Card.Body>
-                                            <Row className="align-items-center">
-                                                {/* ICÔNE POUBELLE */}
-                                                <Col xs="auto">
-                                                    <Trash
-                                                        size={30}
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            handleShow();
-                                                        }}
-                                                    />
+return (
+    <section className="title__container">
 
-                                                    <Modal
-                                                        show={show}
-                                                        onHide={handleClose}
-                                                    >
-                                                        <Modal.Header
-                                                            closeButton
-                                                        >
-                                                            <Modal.Title>
-                                                                Supprimer un
-                                                                projet
-                                                            </Modal.Title>
-                                                        </Modal.Header>
-                                                        <Modal.Body>
-                                                            Etes-vous sur de
-                                                            vouloir le supprimer
-                                                            ?
-                                                        </Modal.Body>
+        {/* FILTRER LES PROJETS */}
+        <Form.Select size="lg"onChange={handleChange} aria-label="Sort by genre" className="mb-4 select-margin">
+                    
+            <option value=''>Trier par statut</option>
+            {/* Si la liste de projets & statut n'est pas vide, on affiche la liste des status, sinon on affiche "Pas de statut"*/}
+            {(projectList?.length > 0 && statusList.length != 0) ? statusList.map((status) => (
+                <option value={status} key={status}>{status}</option>
+            ))
+            :
+                <option>Pas de statut</option>
+            }
+        </Form.Select>
+
+        {/* LISTE DES PROJETS */}
+        <Container>
+        <Row className="projects__container">
+        {/* si projectList existe (!=null) et n’est pas vide (length != 0), alors affiche la liste des projets avec map, sinon on affiche pas de projet */}
+        {(projectList != null && projectList.length != 0) ? projectList.map((project) => (
+            <Col key={project.id} className="mb-5" md={12}>
+                <Form >
+                    <Card 
+                        className="projects__card"
+                        style={{
+                            width: "100%",
+                            border: "2px" ,
+                        }}
+                    >
+                    
+                        {/* SUPPRESSION PROJET*/}
+                        <Card.Body >
+                            {/* <Row className="flush align-items-center project__card__row"> */}
+                                {/* ICÔNE POUBELLE */}
+                                <div className="project__card__row">
+                                    <Col xs="auto">
+                                        < Trash size={30} onClick={(e) => {e.preventDefault(); handleShow() }}/>
+                                    
+                                            <Modal show={show} onHide={handleClose}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Supprimer un projet</Modal.Title>
+                                                </Modal.Header>
+                                                    <Modal.Body>Etes-vous sur de vouloir le supprimer ?</Modal.Body>
                                                         <Modal.Footer>
-                                                            <Button
-                                                                variant="secondary"
-                                                                onClick={
-                                                                    handleClose
-                                                                }
-                                                            >
+                                                            <Button variant="secondary" onClick={handleClose}>
                                                                 Annuler
                                                             </Button>
-                                                            <Button
-                                                                variant="primary"
-                                                                onClick={(
-                                                                    e
-                                                                ) => {
-                                                                    e.preventDefault();
-                                                                    handleDelete(
-                                                                        project.id
-                                                                    );
-                                                                    handleClose();
-                                                                }}
-                                                            >
+                                                            <Button variant="primary" onClick={(e) => {e.preventDefault(); handleDelete(project.id); handleClose()}}>
                                                                 Supprimer
                                                             </Button>
                                                         </Modal.Footer>
-                                                    </Modal>
-                                                </Col>
+                                            </Modal>
+                                    </Col>
+                                    <Col className="text-center ">
+                                    {/* TITRE PROJET "en cours" */}
+                                        <Badge
+                                            pill
+                                            style={{
+                                                color: "black",
+                                                fontSize: "0.9rem",
+                                            }}
+                                            className="deadline__badge d-block"
+                                            bg={userIs === "admin" ? 'color-admin' : 'color-client'}
+                                        >
+                                            {project.status}
+                                        </Badge>
+                                    }
+                                    {/* STATUS du projet ADMIN*/}     
+                                    {userIs === 'admin' &&
+                                    <div>
+                                        <section className="update__status">
+                                            <Form.Group>
+                                                <Form.Label htmlFor="status-select">Selectionner le statut</Form.Label>
 
-                                                <Col className="text-center ">
-                                                    {/* TITRE PROJET "en cours" */}
-                                                    <Badge
-                                                        pill
-                                                        style={{
-                                                            color: "black",
-                                                            fontSize: "0.9rem",
-                                                        }}
-                                                        className="mb-2 d-block"
-                                                        bg={
-                                                            userIs === "admin"
-                                                                ? "color-admin"
-                                                                : "color-client"
-                                                        }
-                                                    >
-                                                        {project.name}
-                                                    </Badge>
-
-                                                    {/* DESCRIPTION/RESUME PROJET */}
-                                                    <p className="border rounded">
-                                                        {project.resume}
-                                                    </p>
-
-                                                    {/* STATUS*/}
-                                                    {userIs === "admin" && (
-                                                        <div>
-                                                            <section className="update__status">
-                                                                <Form.Group>
-                                                                    <Form.Label htmlFor="status-select">
-                                                                        Selectionner
-                                                                        le
-                                                                        statut
-                                                                    </Form.Label>
-
-                                                                    <Form.Select
-                                                                        defaultValue={
-                                                                            project.status
-                                                                        }
-                                                                        onChange={
-                                                                            handleChangeStatus
-                                                                        }
-                                                                        name="status"
-                                                                        id="status-select"
-                                                                    >
-                                                                        {statusList.length >
-                                                                        0 ? (
-                                                                            statusList.map(
-                                                                                (
-                                                                                    status,
-                                                                                    index
-                                                                                ) => (
-                                                                                    <option
-                                                                                        value={
-                                                                                            status
-                                                                                        }
-                                                                                        id={
-                                                                                            project.id
-                                                                                        }
-                                                                                        key={
-                                                                                            index
-                                                                                        }
-                                                                                    >
-                                                                                        {
-                                                                                            status
-                                                                                        }
-                                                                                    </option>
-                                                                                )
-                                                                            )
-                                                                        ) : (
-                                                                            <option value="noStatus">
-                                                                                pas
-                                                                                de
-                                                                                statut
-                                                                            </option>
-                                                                        )}
-                                                                    </Form.Select>
-                                                                </Form.Group>
-                                                            </section>
-                                                        </div>
-                                                    )}
-
-                                                    {/* DEADLINE*/}
-                                                    <Badge
-                                                        pill
-                                                        style={{
-                                                            color: "black",
-                                                            fontSize: "0.9rem",
-                                                        }}
-                                                        className="deadline__badge d-block"
-                                                        bg={
-                                                            userIs === "admin"
-                                                                ? "color-admin"
-                                                                : "color-client"
-                                                        }
-                                                    >
-                                                        {project.deadline}
-                                                    </Badge>
-                                                </Col>
-                                            </Row>
-                                        </Card.Body>
-                                    </Card>
-                                </Form>
-                            </Col>
-                        ))
-                    ) : (
-                        <p>Pas de projet</p>
-                    )}
-                </Row>
-            </Container>
-        </section>
-    );
+                                                <Form.Select defaultValue={project.status} onChange={handleChangeStatus} name="status" id="status-select">
+                                                    {statusList.length > 0 ?
+                                                    statusList.map((status, index) => (
+                                                        <option value={status} id={project.id} key={index}>{status}</option>
+                                                    )):
+                                                    <option value="noStatus">pas de statut</option>
+                                                    }
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </section>
+                                    </div>
+                                    }       
+                                    
+                                    {/* DEADLINE*/}
+                                    {project.deadline !=null &&
+                                        <Badge
+                                            pill 
+                                            style={{
+                                                color: "black",
+                                                fontSize: "0.9rem",
+                                            }}
+                                            className="deadline__badge d-block"
+                                            bg={userIs === "admin" ? 'color-admin' : 'color-client'}
+                                        >
+                                            {project.deadline}
+                                        </Badge>
+                                    }
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </Form>
+            </Col>
+        ))
+    : <p>Pas de projet</p>}
+        </Row>
+        </Container>
+    </section>
+);
 }
 
 export default ProjectList;
