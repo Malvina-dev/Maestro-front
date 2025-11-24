@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import UserContext from "../../UserContext.jsx";
 import { notify } from "../Toast/Toast.jsx";
+import DOMPurify from "dompurify";
+
 
 function ProjectForm() {
 
@@ -19,13 +21,22 @@ function ProjectForm() {
     async function handleCreateProject (e) {
         e.preventDefault(); // empêche la page de se recharger
 
+
         let projectData;
+
         // ajoute la deadline si présente
         if (deadline !='' ){ 
-            projectData = { name: name, resume: resume, deadline: deadline };
+            projectData = { 
+                name: DOMPurify.sanitize(name),
+                resume: DOMPurify.sanitize(resume),
+                deadline: DOMPurify.sanitize(resume)
+            };
         } else {
             // sinon que le nom et description
-            projectData = { name: name, resume: resume};
+            projectData = { 
+                name: DOMPurify.sanitize(name),
+                resume: DOMPurify.sanitize(resume),
+            };
         }
 
         // envoie le projet puis rafraîchit la liste

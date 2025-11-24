@@ -1,5 +1,4 @@
-import "./Accessibility.scss";
-import {Link} from "react-router-dom";
+import './Accessibility.scss';
 
 function Accessibility() {
     return (
@@ -81,13 +80,21 @@ function Accessibility() {
                     </p>
                 </section>
 
-                <section>
-                    <h2>Contact</h2>
-                    <p>
-                        N’hésitez pas à nous contacter pour signaler tout
-                        problème d’accessibilité ou pour toute question relative
-                        à l’accessibilité du site au lien suivant : <Link to= "/contact">Nous contacter</Link>
-                    </p>
+return (
+<div className="container">
+
+    <h2>Accessibilité</h2>
+        
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
+            In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
+            Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
+            In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
+            Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. 
+            Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. 
+            Ad litora torquent per conubia nostra inceptos himenaeos.</p>
+</div>
 
                 </section>
             </main>
