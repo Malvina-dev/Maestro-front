@@ -78,8 +78,13 @@ Si visiteur  pas d’icône.
     /* .map qui affiche les liens dynamiquement */
     return (
         <header role="banner">
-            <img src="logo.png" alt="logo maestro" className="logo" />
-
+            <a href="/">
+                <img
+                    src="src/assets/images/logo.png"
+                    alt="logo maestro"
+                    className="logo"
+                />
+            </a>
             <nav role="navigation" aria-label="Navigation principale du site">
                 <ul className="nav-list" role="menubar">
                     {commonLinks.map((link, index) => (
