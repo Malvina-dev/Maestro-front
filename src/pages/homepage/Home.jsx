@@ -33,6 +33,7 @@ function Home() {
             {/* Présentation du compositeur */}
             {presentationCompositeur.map((description) => (
                 <DescriptionItem
+                    key={description.id}
                     description={description}
                     onAction={refreshDescriptions}
                 />
@@ -44,6 +45,7 @@ function Home() {
             {/* Prestation */}
             {prestation.map((description) => (
                 <DescriptionItem
+                    key={description.id}
                     description={description}
                     onAction={refreshDescriptions}
                 />
