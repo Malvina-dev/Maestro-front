@@ -140,23 +140,21 @@ return (
             <Col key={project.id} className="mb-5" md={12}>
                 <Form >
                     <Card 
-                        className="border border-primary rounded-3 shadow-sm"
+                        className="projects__card"
                         style={{
                             width: "100%",
                             border: "2px" ,
                         }}
                     >
                     
-                        {/* SUPPRESSION PROJET pour l'admin*/}
-                        <Card.Body>
-                            <Row className="align-items-center">
-                                {/* ICÔNE POUBELLE  */}
-                                <Col xs="auto">
-                                {userIs === "admin" && (
-                                    <>
-                                        < Trash className="project__trash__icon"
-                                            size={30} onClick={(e) => {e.preventDefault(); handleShow() }}
-                                        />
+                        {/* SUPPRESSION PROJET*/}
+                        <Card.Body >
+                            {/* <Row className="flush align-items-center project__card__row"> */}
+                                {/* ICÔNE POUBELLE */}
+                                <div className="project__card__row">
+                                    <Col xs="auto">
+                                        < Trash size={30} onClick={(e) => {e.preventDefault(); handleShow() }}/>
+                                    
                                             <Modal show={show} onHide={handleClose}>
                                                 <Modal.Header closeButton>
                                                     <Modal.Title>Supprimer un projet</Modal.Title>
@@ -171,33 +169,11 @@ return (
                                                             </Button>
                                                         </Modal.Footer>
                                             </Modal>
-                                    </>
-                                )}
-                                </Col>
-
-                                <Col className="text-center ">
-                                {/* TITRE/NOM du PROJET "en cours" */}
-                                    <Badge
-                                        pill
-                                        style={{
-                                            color: "black",
-                                            fontSize: "0.9rem",
-                                        }}
-                                        className="mb-2 d-block"
-                                        bg={userIs === "admin" ? 'color-admin' : 'color-client'}
-                                    > 
-                                        {project.name}
-                                    </Badge>
-                                    
-                                    {/* DESCRIPTION */}
-                                    <p className="border rounded">
-                                        {project.resume}
-                                    </p>
-
-                                    {/* STATUS du projet CLIENT*/}                                    
-                                    {userIs === 'client' &&
+                                    </Col>
+                                    <Col className="text-center ">
+                                    {/* TITRE PROJET "en cours" */}
                                         <Badge
-                                            pill 
+                                            pill
                                             style={{
                                                 color: "black",
                                                 fontSize: "0.9rem",
