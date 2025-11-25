@@ -7,13 +7,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Admin.scss";
 import FullClientCard from "../../components/ClientList/FullClientCard.jsx";
-import WaitingProjectList from "../../components/WaitingProjectList/WaitingProjectList.jsx";
 
 function Admin() {
     // LES COMPOSANTS QUI SERONT SUR LA PAGE:
 
     // Nouvelles demandes de projets
-    // => WaitingProjectList
+    // => WaitingProjectList -> en V2
     // Liste des clients avec leurs informations
     // => ClientList
     // Les projets validés (avec leur statut etc)
