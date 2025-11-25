@@ -158,7 +158,7 @@ return (
                                                 <Modal.Header closeButton>
                                                     <Modal.Title>Supprimer un projet</Modal.Title>
                                                 </Modal.Header>
-                                                    <Modal.Body>Etes-vous sur de vouloir le supprimer ?</Modal.Body>
+                                                    <Modal.Body>Etes-vous sur de vouloir supprimer le projet ?</Modal.Body>
                                                         <Modal.Footer>
                                                             <Button variant="secondary" onClick={handleClose}>
                                                                 Annuler

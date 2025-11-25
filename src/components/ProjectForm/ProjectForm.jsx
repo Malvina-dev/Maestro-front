@@ -29,7 +29,7 @@ function ProjectForm() {
             projectData = { 
                 name: DOMPurify.sanitize(name),
                 resume: DOMPurify.sanitize(resume),
-                deadline: DOMPurify.sanitize(resume)
+                deadline: DOMPurify.sanitize(deadline)
             };
         } else {
             // sinon que le nom et description
