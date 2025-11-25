@@ -19,4 +19,4 @@ function Description({ descriptions }) {
     );
 }
 
-export default Description;
+export default Description; 
