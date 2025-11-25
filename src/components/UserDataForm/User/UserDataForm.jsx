@@ -10,6 +10,7 @@ import { updateMyProfile } from "../../../api/apiUser.js";
 import { useEffect, useContext } from "react";
 import { notify } from "../../Toast/Toast.jsx";
 import UserContext from "../../../UserContext.jsx";
+import DOMPurify from "dompurify";
 
 function UserDataForm() {
     // Voir mes informations
@@ -87,7 +88,9 @@ function UserDataForm() {
                                                 setSetting((prevSetting) => ({
                                                     ...prevSetting, // ← on copie l’ancien objet
                                                     lastname:
-                                                        event.target.value, // ← on remplace seulement fistname
+                                                        DOMPurify.sanitize(
+                                                            event.target.value
+                                                        ), // ← on remplace seulement fistname
                                                 }))
                                             }
                                         />
@@ -114,7 +117,9 @@ function UserDataForm() {
                                                 setSetting((prevSetting) => ({
                                                     ...prevSetting,
                                                     firstname:
-                                                        event.target.value,
+                                                        DOMPurify.sanitize(
+                                                            event.target.value
+                                                        ),
                                                 }))
                                             }
                                         />
@@ -141,7 +146,9 @@ function UserDataForm() {
                                             onChange={(event) =>
                                                 setSetting((prevSetting) => ({
                                                     ...prevSetting,
-                                                    email: event.target.value,
+                                                    email: DOMPurify.sanitize(
+                                                        event.target.value
+                                                    ),
                                                 }))
                                             }
                                         />
@@ -168,7 +175,9 @@ function UserDataForm() {
                                                 setSetting((prevSetting) => ({
                                                     ...prevSetting,
                                                     localisation:
-                                                        event.target.value,
+                                                        DOMPurify.sanitize(
+                                                            event.target.value
+                                                        ),
                                                 }))
                                             }
                                         />
@@ -197,7 +206,9 @@ function UserDataForm() {
                                                 setSetting((prevSetting) => ({
                                                     ...prevSetting,
                                                     phonenumber:
-                                                        event.target.value,
+                                                        DOMPurify.sanitize(
+                                                            event.target.value
+                                                        ),
                                                 }))
                                             }
                                         />

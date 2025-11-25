@@ -10,6 +10,7 @@ import { updateCompany } from "../../../api/apiCompany.js";
 import { createCompany } from "../../../api/apiCompany.js";
 import { useEffect } from "react";
 import { notify } from "../../Toast/Toast.jsx";
+import DOMPurify from "dompurify";
 
 function CompanyDataForm({ onUpdate }) {
     // Voir mes informations d'entreprise
@@ -18,7 +19,6 @@ function CompanyDataForm({ onUpdate }) {
     async function getMyCompanySetting() {
         const myCompany = await getMyCompany();
         setCompanySetting(myCompany.company);
-        // console.log("setting log :", myCompany.company);
     }
 
     useEffect(() => {
@@ -26,7 +26,6 @@ function CompanyDataForm({ onUpdate }) {
     }, []);
 
     function companyHandelSubmit(event) {
-        // console.log("companyHandelSubmit", companySetting);
         event.preventDefault();
 
         onUpdate
@@ -42,7 +41,6 @@ function CompanyDataForm({ onUpdate }) {
         <>
             <Container className="dataForm-container">
                 <Row>
-                    {/* <Col sm={6}> */}
                     <Col>
                         {/* ENTREPRISE */}
                         <Row>
@@ -87,8 +85,10 @@ function CompanyDataForm({ onUpdate }) {
                                                             prevCompanySetting
                                                         ) => ({
                                                             ...prevCompanySetting, // ← on copie l’ancien objet
-                                                            name: event.target
-                                                                .value, // ← on remplace seulement name
+                                                            name: DOMPurify.sanitize(
+                                                                event.target
+                                                                    .value
+                                                            ), // ← on remplace seulement name
                                                         })
                                                     )
                                                 }
@@ -119,8 +119,10 @@ function CompanyDataForm({ onUpdate }) {
                                                         ) => ({
                                                             ...prevCompanySetting,
                                                             localisation:
-                                                                event.target
-                                                                    .value,
+                                                                DOMPurify.sanitize(
+                                                                    event.target
+                                                                        .value
+                                                                ),
                                                         })
                                                     )
                                                 }
@@ -152,8 +154,10 @@ function CompanyDataForm({ onUpdate }) {
                                                             prevCompanySetting
                                                         ) => ({
                                                             ...prevCompanySetting,
-                                                            siret: event.target
-                                                                .value,
+                                                            siret: DOMPurify.sanitize(
+                                                                event.target
+                                                                    .value
+                                                            ),
                                                         })
                                                     )
                                                 }
