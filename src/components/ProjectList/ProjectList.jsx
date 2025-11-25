@@ -45,7 +45,7 @@ function ProjectList() {
             const result = await getAllProjectList();
             setStatusList (result.Liststatus);
             setProjectList(result.projects);
-        } else { 
+        } else if (userIs === 'admin'){ 
             // si ADMIN
             const result = await getAllAdminProjects();
             setStatusList (result.Liststatus);
@@ -61,7 +61,7 @@ function ProjectList() {
             const result  = await getFilteredProjectList(status);
             console.log("client:",result.projects);
             setProjectList(result.projects);
-        } else {
+        } else if (userIs === 'admin') {
             // si ADMIN
             const result  = await getFilteredAdminProjects(status);
             console.log("admin:", result);
