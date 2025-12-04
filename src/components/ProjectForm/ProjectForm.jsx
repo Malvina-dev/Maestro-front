@@ -17,7 +17,7 @@ function ProjectForm() {
     // rafraichi la liste de projet
     const {needRefreshProjectList} = useContext(UserContext)
 
-    // envoie le nouveau projet à l’API
+    // soumission du formulaire (création d'un projet))
     async function handleCreateProject (e) {
         e.preventDefault(); // empêche la page de se recharger
 
@@ -44,7 +44,7 @@ function ProjectForm() {
         // console.log("name nettoyé:", DOMPurify.sanitize(name));
         
 
-        // envoie le projet puis rafraîchit la liste
+        // envoi le projet à l'API puis rafraîchit la liste
         await createProject(projectData);
         needRefreshProjectList()
         notify("Demande envoyée") // message TOAST 

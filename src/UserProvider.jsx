@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export function UserProvider({children}) {
     const [userIs, setUserIs] = useState('visitor');
-    const [refreshList,setrefreshList] = useState('false');
+    const [refreshList,setrefreshList] = useState(false);
 
     function needRefreshProjectList(){
         setrefreshList(true); // il faut recharger
