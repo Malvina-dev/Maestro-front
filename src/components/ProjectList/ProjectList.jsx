@@ -9,6 +9,7 @@ import { Trash } from "react-bootstrap-icons";
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
+import { notify } from "../Toast/Toast.jsx";
 
 
 
@@ -97,6 +98,7 @@ function ProjectList() {
         async function handleDelete(id) {
             try {
                 await deleteProject(id);
+                notify("Projet supprimé");
                 getProjects();
             } catch (error) {
                 console.error("erreur lors de la suppression du projet", error);
