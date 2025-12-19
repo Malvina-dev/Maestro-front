@@ -105,6 +105,7 @@ function ProjectForm() {
             </Button>
 
             <p className="form__champsObligatoire">*champs obligatoires</p>
+            <h2 className="title">Mes projets</h2>
         </Form>
         
     );
